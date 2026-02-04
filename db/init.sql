@@ -7,9 +7,11 @@ Create table boardgame(
     name varchar(100) not null,
     numberPlayes varchar(20) not null,
     onePlayer boolean default false,
+    playTime varchar(15) not null,
     mecanic varchar(25) not null,
     age varchar(10) not null,
     difficulty varchar(25) default null,
+    image varchar(200) not null,
     description varchar(500) default null,
     qualification decimal(2,1) unsigned default 0.0,
     review varchar(500) default null,
@@ -37,6 +39,8 @@ Create table boardgameInfo(
 );
 
 --inserts de los juegos de la parte de juegos de mesa
+
+--TODO falta añadir tiempo estimado de partida (campo playtime) y url de la imagen
 
 INSERT INTO boardgame (name, numberPlayes, onePlayer, mecanic, age, difficulty, description, qualification, review, yearRelease) VALUES
 ('Catan', '3-4', false, 'Estrategia', '10+', 'Media', 'Juego de comercio y construcción en una isla.', null, null, 1995),

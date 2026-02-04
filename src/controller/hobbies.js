@@ -19,7 +19,7 @@ const getBoardGames = (async (req, res) => {
             });
         }
 
-        const boardgame = await findBoardgameByName(name);
+        const boardgame = await boardgameExistsByName(name);
         res.status(200).json(boardgame);
     }
 });
@@ -51,16 +51,19 @@ const postBoardgame = (async (req, res) => {
         });
     }
 
-        const realeseDate = req.body.realeseDate;
-        const playtime= req.body.playtime;
-        const players= req.body.players;
-        const onePlayer= req.body.onePlayer;
-        const difficulty= req.body.difficulty;
-        const language= req.body.language;
-        const author= req.body.author;
-        const description= req.body.description;    
+    const numberPlayers= req.body.numberPlayers;
+    const onePlayer= req.body.onePlayer;
+    const playTime= req.body.playTime;
+    const mecanic= req.body.mecanic;
+    const age= req.body.age;
+    const difficulty= req.body.difficulty;
+    const image= req.body.image;
+    const description= req.body.description;
+    const qualification=req.body.qualification;
+    const review= req.body.review;
+    const yearRelease= req.body.yearRelease; 
 
-    if (name === null || realeseDate === null || players === null || onePlayer===null) {
+    if (name === null || numberPlayers === null || playTime === null || mecanic===null || age===null || image===null) {
         return res.status(400).json({
             code: 400,
             return: 'bad-request',
@@ -68,7 +71,7 @@ const postBoardgame = (async (req, res) => {
         });
     }
 
-    const newBoardgame = await addBoardgame(name, realeseDate, playtime, players, onePlayer, difficulty, language, author, description);
+    const newBoardgame = await addBoardgame(name, numberPlayers, onePlayer, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease);
 
     res.status(201).json({
         code: 201,
@@ -89,17 +92,21 @@ const putBoardgame = (async (req, res) => {
             message: 'the boardgame has not been founded'
         });
     }
-    const name = req.body.name;
-    const realeseDate = req.body.realeseDate;
-    const playtime= req.body.playtime;
-    const players= req.body.players;
-    const onePlayer= req.body.onePlayer;
-    const difficulty= req.body.difficulty;
-    const language= req.body.language;
-    const author= req.body.author;
-    const description= req.body.description;   
 
-    await modifyBoardgame(id, name, realeseDate, playtime, players, onePlayer, difficulty, language, author, description);
+    const name = req.body.name;
+    const numberPlayers= req.body.numberPlayers;
+    const onePlayer= req.body.onePlayer;
+    const playTime= req.body.playTime;
+    const mecanic= req.body.mecanic;
+    const age= req.body.age;
+    const difficulty= req.body.difficulty;
+    const image= req.body.image;
+    const description= req.body.description;
+    const qualification=req.body.qualification;
+    const review= req.body.review;
+    const yearRelease= req.body.yearRelease;  
+
+    await modifyBoardgame(id, name, numberPlayers, onePlayer, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease);
 
     res.status(204).end();
 

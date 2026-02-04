@@ -1,97 +1,64 @@
 const db = require('../configuration/database.js').db;
 const { homedir, platform } = require('os');
-const { getDays, getDaysfromNow, getYearsFromNow } = require('../utils/dateUtils.js');
-const { diff } = require('util');
 
 const findAllBoardgames = (async () => {
-    const boardgames = await db('hobbies').select('*');
-
-    boardgames.forEach((boardgame) => {
-        const realeseDate = new Date(boardgame.realeseDate);
-        boardgame.year = getYearsFromNow(realeseDate);
-        boardgame.realeseDate = new Date(boardgame.realeseDate).toISOString().split('T')[0];
-    })
-
-    return boardgames;
+    return await db('boardgame').select('*');    
 });
 
 const findBoardgame = (async (id) => {
-    const boardgame = await db('hobbies').select('*').where({ id: id }).first();
-
-    //almacenamos en una variable el campo de birthDate de la base de datos pirate
-    const realeseDate = new Date(boardgame.realeseDate)
-    boardgame.year = getYearsFromNow(realeseDate);
-    //formatea la fecha a YYYY-MM-DD
-    boardgame.realeseDate = new Date(boardgame.realeseDate).toISOString().split('T')[0];
-
-    return boardgame;
+    return await db('boardgame').select('*').where({idBoardgame: id}).first();
 });
 
 const findBoardgameByName = (async (name) => {
-    const boardgame = await db('hobbies').select('*').where({ name: name }).first();
-
-    if (boardgame === null) return null;
-
-    if (boardgame.realeseDate) {
-        const realeseDate = new Date(boardgame.realeseDate);
-        boardgame.year = getYearsFromNow(realeseDate);
-        boardgame.realeseDate = new Date(boardgame.realeseDate).toISOString().split('T')[0];
-    }
-
-    return boardgame
+    return await db('boardgame').select('*').where({name: name}).first();
 });
 
-const addBoardgame = (async (name, realeseDate, playtime, players, onePlayer, difficulty, language, author, description) => {
-    return await db('hobbies').insert({
+const addBoardgame = (async (name, numberPlayers, onePlayer, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease) => {
+    return await db('boardgame').insert({
         name: name,
-        realeseDate, realeseDate,
-        playtime, playtime,
-        players: players,
+        numberPlayers: numberPlayers,
         onePlayer: onePlayer,
+        playTime: playTime,
+        mecanic: mecanic,
+        age: age,
         difficulty: difficulty,
-        language: language,
-        author: author,
-        description: description
+        image: image,
+        description: description,
+        qualification: qualification,
+        review: review,
+        yearRelease: yearRelease
     });
 });
 
-const modifyBoardgame = (async (name, realeseDate, playtime, players, onePlayer, difficulty, language, author, description) => {
-    return await db('hobbies').where({ id: id }).update({
+const modifyBoardgame = (async (name, numberPlayers, onePlayer, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease) => {
+    return await db('boardgame').where({ idBoardgame: id }).update({
         name: name,
-        realeseDate, realeseDate,
-        playtime, playtime,
-        players: players,
+        numberPlayers: numberPlayers,
         onePlayer: onePlayer,
+        playTime: playTime,
+        mecanic: mecanic,
+        age: age,
         difficulty: difficulty,
-        language: language,
-        author: author,
-        description: description
+        image: image,
+        description: description,
+        qualification: qualification,
+        review: review,
+        yearRelease: yearRelease
     });
 });
 
 const removeBoardgame = (async (id) => {
-    return await db('hobbies').where({ id: id }).del();
+    return await db('boardgame').where({ idBoardgame: id }).del();
 });
 
 const boardgameExistsById = (async (id) => {
-    const boardgame = await db('hobbies').select('*').where({ id: id }).first();
-
-    const realeseDate = new Date(boardgame.realeseDate);
-    boardgame.year = getYearsFromNow(realeseDate);
-    boardgame.realeseDate = new Date(boardgame.realeseDate).toISOString().split('T')[0];
-
-
+    const boardgame = await db('boardgame').select('*').where({idBoardgame: id}).first();    
     return boardgame != null;
 });
 
 const boardgameExistsByName = (async (name) => {
-    const boardgame = await db('pirates').select('*').where({ name: name }).first();
-
-    const realeseDate = new Date(boardgame.realeseDate);
-    boardgame.year = getYearsFromNow(realeseDate);
-    boardgame.realeseDate = new Date(boardgame.realeseDate).toISOString().split('T')[0];
-
-    return pirate != null;
+    const boardgame = await db('boardgame').select('*').where({name: name}).first();
+    return boardgame != null;
 });
 
 module.exports = {
