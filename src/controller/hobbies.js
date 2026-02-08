@@ -53,6 +53,7 @@ const postBoardgame = (async (req, res) => {
 
     const numberPlayers= req.body.numberPlayers;
     const onePlayer= req.body.onePlayer;
+    const price= req.body.price;
     const playTime= req.body.playTime;
     const mecanic= req.body.mecanic;
     const age= req.body.age;
@@ -63,7 +64,7 @@ const postBoardgame = (async (req, res) => {
     const review= req.body.review;
     const yearRelease= req.body.yearRelease; 
 
-    if (name === null || numberPlayers === null || playTime === null || mecanic===null || age===null || image===null) {
+    if (name === null || numberPlayers === null || price===null || playTime === null || mecanic===null || age===null || image===null) {
         return res.status(400).json({
             code: 400,
             return: 'bad-request',
@@ -71,7 +72,7 @@ const postBoardgame = (async (req, res) => {
         });
     }
 
-    const newBoardgame = await addBoardgame(name, numberPlayers, onePlayer, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease);
+    const newBoardgame = await addBoardgame(name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease);
 
     res.status(201).json({
         code: 201,
@@ -96,6 +97,7 @@ const putBoardgame = (async (req, res) => {
     const name = req.body.name;
     const numberPlayers= req.body.numberPlayers;
     const onePlayer= req.body.onePlayer;
+    const price= req.body.price;
     const playTime= req.body.playTime;
     const mecanic= req.body.mecanic;
     const age= req.body.age;
@@ -106,7 +108,7 @@ const putBoardgame = (async (req, res) => {
     const review= req.body.review;
     const yearRelease= req.body.yearRelease;  
 
-    await modifyBoardgame(id, name, numberPlayers, onePlayer, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease);
+    await modifyBoardgame(id, name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease);
 
     res.status(204).end();
 

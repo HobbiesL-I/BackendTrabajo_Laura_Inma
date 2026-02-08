@@ -13,16 +13,16 @@ const findBoardgameByName = (async (name) => {
     return await db('boardgame').select('*').where({name: name}).first();
 });
 
-const addBoardgame = (async (name, numberPlayers, onePlayer, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease) => {
+const addBoardgame = (async (name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease) => {
     return await db('boardgame').insert({
         name: name,
         numberPlayers: numberPlayers,
         onePlayer: onePlayer,
+        price: price,
         playTime: playTime,
         mecanic: mecanic,
         age: age,
         difficulty: difficulty,
-        image: image,
         description: description,
         qualification: qualification,
         review: review,
@@ -30,11 +30,12 @@ const addBoardgame = (async (name, numberPlayers, onePlayer, playTime, mecanic, 
     });
 });
 
-const modifyBoardgame = (async (name, numberPlayers, onePlayer, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease) => {
+const modifyBoardgame = (async (name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease) => {
     return await db('boardgame').where({ idBoardgame: id }).update({
         name: name,
         numberPlayers: numberPlayers,
         onePlayer: onePlayer,
+        price: price,
         playTime: playTime,
         mecanic: mecanic,
         age: age,
