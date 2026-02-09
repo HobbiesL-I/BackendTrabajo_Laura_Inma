@@ -10,7 +10,7 @@ Create table boardgame(
     mecanic varchar(25) not null,
     age varchar(10) not null,
     difficulty varchar(25) default null,
-    description varchar(500) default null,
+    description varchar(2000) default null,
     qualification decimal(2,1) unsigned default 0.0,
     review varchar(500) default null,
     yearRelease int unsigned default null

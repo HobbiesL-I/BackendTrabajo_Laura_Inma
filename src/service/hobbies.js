@@ -2,7 +2,17 @@ const db = require('../configuration/database.js').db;
 const { homedir, platform } = require('os');
 
 const findAllBoardgames = (async () => {
-    return await db('boardgame').select('*');    
+    return await db('boardgame').leftJoin('boardgameInfo', 'boardgame.idBoardgame', 'boardgameInfo.idBoardgame')
+    .leftJoin('category', 'boardgameInfo.idCategory', 'category.idCategory')
+    .leftJoin('language', 'boardgameInfo.idLanguage', 'language.idLanguage')
+    .leftJoin('boardgameImage', 'boardgameInfo.idImage', 'boardgameImage.idImage')
+    .select('boardgame.*',
+    db.raw('GROUP_CONCAT(DISTINCT category.nameCategory) as categories'),
+            db.raw('GROUP_CONCAT(DISTINCT language.nameLanguage) as languages'),
+            db.raw('GROUP_CONCAT(DISTINCT boardgameImage.boardgameImage) as images'
+    ))
+    .groupBy('boardgame.idBoardgame')
+    .orderBy('boardgame.idBoardgame');
 });
 
 const findBoardgame = (async (id) => {
