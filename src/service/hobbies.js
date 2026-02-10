@@ -7,16 +7,27 @@ const findAllBoardgames = (async () => {
     .leftJoin('language', 'boardgameInfo.idLanguage', 'language.idLanguage')
     .leftJoin('boardgameImage', 'boardgameInfo.idImage', 'boardgameImage.idImage')
     .select('boardgame.*',
-    db.raw('GROUP_CONCAT(DISTINCT category.nameCategory) as categories'),
-            db.raw('GROUP_CONCAT(DISTINCT language.nameLanguage) as languages'),
-            db.raw('GROUP_CONCAT(DISTINCT boardgameImage.boardgameImage) as images'
-    ))
+        db.raw('group_concat(distinct category.nameCategory) as categories'),
+        db.raw('group_concat(distinct language.nameLanguage) as languages'),
+        db.raw('group_concat(distinct boardgameImage.boardgameImage) as images')
+    )
     .groupBy('boardgame.idBoardgame')
     .orderBy('boardgame.idBoardgame');
 });
 
 const findBoardgame = (async (id) => {
-    return await db('boardgame').select('*').where({idBoardgame: id}).first();
+    return await db('boardgame').leftJoin('boardgameInfo', 'boardgame.idBoardgame', 'boardgameInfo.idBoardgame')
+    .leftJoin('category', 'boardgameInfo.idCategory', 'category.idCategory')
+    .leftJoin('language', 'boardgameInfo.idLanguage', 'language.idLanguage')
+    .leftJoin('boardgameImage', 'boardgameInfo.idImage', 'boardgameImage.idImage')
+    .select('boardgame.*',
+        db.raw('Group_concat(distinct category.nameCategory) as categories'),
+        db.raw('Group_concat(distinct language.nameLanguage) as languages'),
+        db.raw('Group_concat(distinct boardgameImage.boardgameImage) as images')
+    )
+    .where('boardgame.idBoardgame', id)
+    .groupBy('boardgame.idBoardgame')
+    .first();
 });
 
 const findBoardgameByName = (async (name) => {
