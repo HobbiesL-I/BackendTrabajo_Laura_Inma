@@ -3,11 +3,11 @@ use hobbies;
 Create table boardgame(
     idBoardgame int unsigned auto_increment primary key,
     name varchar(100) not null,
-    numberPlayes varchar(20) not null,
+    numberPlayers varchar(20) not null,
     onePlayer boolean default false,
     price decimal(6,2) not null,
     playTime varchar(15) not null,
-    mecanic varchar(25) not null,
+    mecanic varchar(200) not null,
     age varchar(10) not null,
     difficulty varchar(25) default null,
     description varchar(2000) default null,
@@ -33,17 +33,17 @@ Create table boardgameImage(
 
 Create table boardgameInfo(
     idBoardgameInfo int unsigned auto_increment primary key,
-    idBoardgame int unsigned not null,
-    idCategory int unsigned not null,
-    idLanguage int unsigned not null,
-    idImage int unsigned not null,
+    idBoardgame int unsigned,
+    idCategory int unsigned,
+    idLanguage int unsigned,
+    idImage int unsigned,
     foreign key (idBoardgame) references boardgame(idBoardgame),
     foreign key (idCategory) references category(idCategory),
     foreign key (idLanguage) references language(idLanguage),
     foreign key (idImage) references boardgameImage(idImage)
 );
 
-insert into boardgame (name, numberPlayes, onePlayer, price, playTime, mecanic, age, difficulty, description, qualification, review, yearRelease) values 
+insert into boardgame (name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, description, qualification, review, yearRelease) values 
 ('Catan', '3-4', FALSE, 39.99, '60-90 min', 'Negociación', '10+', 'Media', 'Comercia recursos y construye asentamientos en la isla de Catan.', NULL, NULL, 1995),
 ('Ticket to Ride', '2-5', FALSE, 49.99, '30-60 min', 'Construcción rutas', '8+', 'Fácil', 'Conecta ciudades americanas reclamando rutas de tren.', NULL, NULL, 2004),
 ('Carcassonne', '2-5', FALSE, 34.99, '30-45 min', 'Colocación losetas', '7+', 'Fácil', 'Coloca losetas y reclama terrenos con tus meeples.', NULL, NULL, 2000),

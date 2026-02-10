@@ -40,48 +40,64 @@ const getBoardGame = (async (req, res) => {
 
 });
 
-const postBoardgame = (async (req, res) => {
-    const name = req.body.name;
+const postBoardgame = async (req, res) => {
+    try{
 
-    if (await boardgameExistsByName(name)) {
-        return res.status(409).json({
+        const{
+            name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, description, qualification,
+            review, yearRelease, categories, languages, images
+        }= req.body;
+
+        if(!name || !numberPlayers || !price || !playTime || !mecanic || !age){
+            return res.status(400).json({
+                code: 400,
+                return: 'bad-request',
+                message: 'There are fields to be filled in: name, numberPlayers, price, playTime, mecanic or age.'
+            }); 
+        }
+
+        if (await boardgameExistsByName(name)) {
+            return res.status(409).json({
             code: 409,
             title: 'conflict',
-            message: 'The boardgame is already on the list.'
+            message: 'The boardgame already exists.'
+            });
+        }
+    
+        const boardgameData = {
+            name, numberPlayers, onePlayer: onePlayer || 0, price, playTime, mecanic, age, difficulty, description, 
+            qualification: qualification || 0, review: review || '', yearRelease
+        };
+
+        const boardgameCategories= {categories: categories || []};
+        const boardgameLanguages={languages: languages || []};
+        const boardgameImages={images:images || []};
+
+        const idBoardgame = await addBoardgame(
+            boardgameData,
+            boardgameCategories,
+            boardgameLanguages,
+            boardgameImages
+        );
+    
+        res.status(201).json({
+            code: 201,
+            tittle: 'created',
+            message: `The data of the boardgame have been successfully entered. The Id is ${idBoardgame}`,
+            idBoardgame
+        });
+
+    
+    }catch(error){
+        console.error('Error en postBoardgame:');
+        res.status(500).json({
+            code:500,
+            title:'internal-error',
+            message: 'It was not possible to add the boardgame'
         });
     }
-
-    const numberPlayers= req.body.numberPlayers;
-    const onePlayer= req.body.onePlayer;
-    const price= req.body.price;
-    const playTime= req.body.playTime;
-    const mecanic= req.body.mecanic;
-    const age= req.body.age;
-    const difficulty= req.body.difficulty;
-    const image= req.body.image;
-    const description= req.body.description;
-    const qualification=req.body.qualification;
-    const review= req.body.review;
-    const yearRelease= req.body.yearRelease; 
-
-    if (name === null || numberPlayers === null || price===null || playTime === null || mecanic===null || age===null || image===null) {
-        return res.status(400).json({
-            code: 400,
-            return: 'bad-request',
-            message: 'There are fields to be filled in.'
-        });
-    }
-
-    const newBoardgame = await addBoardgame(name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease);
-
-    res.status(201).json({
-        code: 201,
-        tittle: 'created',
-        message: 'The data of the boardgame have been successfully entered.',
-        data: newBoardgame
-    });
-
-});
+   
+};
 
 const putBoardgame = (async (req, res) => {
     const id = req.params.id;

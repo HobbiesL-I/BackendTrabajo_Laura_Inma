@@ -34,22 +34,66 @@ const findBoardgameByName = (async (name) => {
     return await db('boardgame').select('*').where({name: name}).first();
 });
 
-const addBoardgame = (async (name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease) => {
-    return await db('boardgame').insert({
-        name: name,
-        numberPlayers: numberPlayers,
-        onePlayer: onePlayer,
-        price: price,
-        playTime: playTime,
-        mecanic: mecanic,
-        age: age,
-        difficulty: difficulty,
-        description: description,
-        qualification: qualification,
-        review: review,
-        yearRelease: yearRelease
+const addBoardgame = async (boardgameData, boardgameCategories, boardgameLanguages, boardgameImages) =>{
+    const [idBoardgame] = await db('boardgame').insert({
+        name: boardgameData.name,
+        numberPlayers: boardgameData.numberPlayers,
+        onePlayer: boardgameData.onePlayer || 0,
+        price: boardgameData.price,
+        playTime: boardgameData.playTime,
+        mecanic: boardgameData.mecanic,
+        age: boardgameData.age,
+        difficulty: boardgameData.difficulty,
+        description: boardgameData.description,
+        qualification: boardgameData.qualification || 0,
+        review: boardgameData.review || '',
+        yearRelease: boardgameData.yearRelease
     });
-});
+    
+    for(const categoryName of boardgameCategories.categories){
+        const [idCategory] = await db('category').select('idCategory')
+        .where('nameCategory', categoryName).pluck('idCategory');
+
+        if(idCategory){
+            await db('boardgameInfo').insert({
+                idBoardgame: idBoardgame,
+                idCategory: idCategory,
+                idLanguage: null,
+                idImage: null
+            });
+        }    
+    }
+
+    for(const languageName of boardgameLanguages.languages){
+        const [idLanguage] = await db('language').select('idLanguage')
+        .where('nameLanguage', languageName).pluck('idLanguage');
+
+        if(idLanguage){
+            await db('boardgameInfo').insert({
+                idBoardgame: idBoardgame,
+                idCategory: null,
+                idLanguage: idLanguage,
+                idImage: null
+            });
+        }
+    }
+
+    for (const imageUrl of boardgameImages.images){
+        const [idImage] = await db('boardgameImage').select('idImage')
+        .where('boardgameImage', imageUrl).pluck('idImage');
+
+        if((idImage)){
+            await db('boardgameInfo').insert({
+                idBoardgame: idBoardgame,
+                idCategory:idCategory,
+                idLanguage:idLanguage,
+                idImage: idImage
+            });
+        }
+    }
+
+    return idBoardgame;
+};
 
 const modifyBoardgame = (async (name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease) => {
     return await db('boardgame').where({ idBoardgame: id }).update({
