@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const {getBoardGames, getBoardGame, postBoardgame, putBoardgame, deleteBoardgame}= require('../controller/hobbies.js');
+const {getBoardGames, getBoardGame, postBoardgame, postValoration}= require('../controller/hobbies.js');
 
 router.get('/hobbies/boardgames', getBoardGames);
-router.get('/hobbies/boardgames/:id', getBoardGame);
+router.get('/hobbies/boardgames/:idBoardgame', getBoardGame);
 router.post('/hobbies/boardgames', postBoardgame);
-router.put('/hobbies/boardgames/:id', putBoardgame);
-router.delete('/hobbies/boardgames/:id', deleteBoardgame);
+router.post('/hobbies/boardgames/:idBoardgame/valoration', postValoration);
 
 module.exports = router;

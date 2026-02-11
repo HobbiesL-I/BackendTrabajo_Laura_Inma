@@ -1,5 +1,5 @@
 const { response } = require('express');
-const { findAllBoardgames, findBoardgame, findBoardgameByName, addBoardgame, modifyBoardgame, removeBoardgame, boardgameExistsById, boardgameExistsByName} = require('../service/hobbies');
+const { findAllBoardgames, findBoardgame, findBoardgameByName, addBoardgame, boardgameExistsById, boardgameExistsByName, addBoardgameValoration} = require('../service/hobbies');
 
 
 const getBoardGames = (async (req, res) => {
@@ -25,92 +25,33 @@ const getBoardGames = (async (req, res) => {
 });
 
 const getBoardGame = (async (req, res) => {
-    const id = req.params.id;
+    const idBoardgame = req.params.idBoardgame;
 
-    if (! await boardgameExistsById(id)) {
+    if (! await boardgameExistsById(idBoardgame)) {
         return res.status(404).json({
             code: 404,
             title: 'not-found',
-            message: 'the boardgame has not been founded'
+            message: 'The boardgame has not been founded.'
         });
     }
 
-    const boardgame = await findBoardgame(id);
+    const boardgame = await findBoardgame(idBoardgame);
     res.status(200).json(boardgame);
 
 });
 
+//Función para añadir un nuevo juego de mesa a la base de datos
 const postBoardgame = async (req, res) => {
-    try{
+    const name= req.body.name;
 
-        const{
-            name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, description, qualification,
-            review, yearRelease, categories, languages, images
-        }= req.body;
-
-        if(!name || !numberPlayers || !price || !playTime || !mecanic || !age){
-            return res.status(400).json({
-                code: 400,
-                return: 'bad-request',
-                message: 'There are fields to be filled in: name, numberPlayers, price, playTime, mecanic or age.'
-            }); 
-        }
-
-        if (await boardgameExistsByName(name)) {
-            return res.status(409).json({
+    if (await boardgameExistsByName(name)) {
+        return res.status(409).json({
             code: 409,
             title: 'conflict',
-            message: 'The boardgame already exists.'
-            });
-        }
-    
-        const boardgameData = {
-            name, numberPlayers, onePlayer: onePlayer || 0, price, playTime, mecanic, age, difficulty, description, 
-            qualification: qualification || 0, review: review || '', yearRelease
-        };
-
-        const boardgameCategories= {categories: categories || []};
-        const boardgameLanguages={languages: languages || []};
-        const boardgameImages={images:images || []};
-
-        const idBoardgame = await addBoardgame(
-            boardgameData,
-            boardgameCategories,
-            boardgameLanguages,
-            boardgameImages
-        );
-    
-        res.status(201).json({
-            code: 201,
-            tittle: 'created',
-            message: `The data of the boardgame have been successfully entered. The Id is ${idBoardgame}`,
-            idBoardgame
-        });
-
-    
-    }catch(error){
-        console.error('Error en postBoardgame:');
-        res.status(500).json({
-            code:500,
-            title:'internal-error',
-            message: 'It was not possible to add the boardgame'
-        });
-    }
-   
-};
-
-const putBoardgame = (async (req, res) => {
-    const id = req.params.id;
-
-    if (!await boardgameExistsById(id)) {
-        return res.status(404).json({
-            code: 404,
-            title: 'not-found',
-            message: 'the boardgame has not been founded'
+            message: 'The boardgame is already on the list.'
         });
     }
 
-    const name = req.body.name;
     const numberPlayers= req.body.numberPlayers;
     const onePlayer= req.body.onePlayer;
     const price= req.body.price;
@@ -118,39 +59,52 @@ const putBoardgame = (async (req, res) => {
     const mecanic= req.body.mecanic;
     const age= req.body.age;
     const difficulty= req.body.difficulty;
-    const image= req.body.image;
     const description= req.body.description;
-    const qualification=req.body.qualification;
-    const review= req.body.review;
-    const yearRelease= req.body.yearRelease;  
+    const yearRelease= req.body.yearRelease;
+    const imageBoardgame= req.body.imageBoardgame;
+    const videoBoardgame= req.body.videoBoardgame;
 
-    await modifyBoardgame(id, name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, image, description, qualification, review, yearRelease);
+    await addBoardgame(name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame);
 
     res.status(204).end();
+   
+};
 
-});
+const postValoration = async (req, res) => {
+    const idBoardgame=req.body.idBoardgame;
 
-
-const deleteBoardgame = (async (req, res) => {
-    const id = req.params.id;
-
-    if (!await boardgameExistsById(id)) {
-        return res.status(404).json({
-            code: 404,
-            title: 'not-found',
-            message: 'the boardgame has not been founded'
+    if(!await boardgameExistsById(idBoardgame)){
+        return res.status(409).json({
+            code: 409,
+            title: 'conflict',
+            message: 'There is no boardgame to valorate.'
         });
     }
 
-    await removeBoardgame(id);
+    const namePerson= req.body.namePerson;
+    const qualification=req.body.qualification;
+    const review=req.body.review;
 
-    res.status(204).end();
-});
+    if(qualification === undefined || qualification < 0.0 || qualification > 5.9){
+        return res.status(400).json({
+            code: 400,
+            title: 'bad-request',
+            message: 'You must put a qualification and a review'
+        });
+    }
+
+    const boardgameValoration = await addBoardgameValoration(idBoardgame, namePerson, qualification, review);
+    res.status(201).json({
+        code:201,
+        title:'created',
+        message: 'The valoration has been added correctly',
+        data: {idValoration: boardgameValoration}
+    });
+}
 
 module.exports = {
     getBoardGames,
     getBoardGame,
     postBoardgame,
-    putBoardgame,
-    deleteBoardgame
+    postValoration
 }
