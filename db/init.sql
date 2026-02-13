@@ -16,7 +16,7 @@ Create table boardgame(
     videoBoardgame varchar(255) default null
 );
 
-Create table valoration(
+Create table valorationBoardgame(
     idValoration int unsigned auto_increment primary key,
     idBoardgame int unsigned null,
     namePerson varchar(100) default 'anonymous',
