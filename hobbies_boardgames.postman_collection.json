@@ -1,0 +1,172 @@
+{
+  "info": {
+    "_postman_id": "a27b6a1f-0929-422e-b85b-2741988db581",
+    "name": "hobbies",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49087939",
+    "_collection_link": "https://go.postman.co/collection/49087939-a27b6a1f-0929-422e-b85b-2741988db581?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "/hobbies/boardgames",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"idBoardgame\": 1,\r\n    \"namePerson\": \"Laura\",\r\n    \"qualification\": 3.2,\r\n    \"review\": \"Good board game, but could be better.\"    \r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/boardgames",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "boardgames"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/boardgames/:idBoardgame",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/hobbies/boardgames/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "boardgames",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/valorationsBoardgame",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"idBoardgame\": 1,\r\n    \"namePerson\": \"Laura\",\r\n    \"qualification\": 3.2,\r\n    \"review\": \"Good board game, but could be better.\"    \r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/valorationsBoardgame",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "valorationsBoardgame"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/valorationsBoardgame/:idBoardgame",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"idBoardgame\": 1,\r\n    \"namePerson\": \"Laura\",\r\n    \"qualification\": 3.2,\r\n    \"review\": \"Good board game, but could be better.\"    \r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/valorationsBoardgame/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "valorationsBoardgame",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/boardgames",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Timeline\",\r\n    \"numberPlayers\": \"2-6\",\r\n    \"onePlayer\": 0,\r\n    \"price\": 12.99,\r\n    \"playTime\": \"15 min\",\r\n    \"mecanic\": \"Cartas de Doble Cara\",\r\n    \"age\": \"8+\",\r\n    \"difficulty\": \"Fácil\",\r\n    \"description\": \"Con su fascinante temática de inventos y descubrimientos, este juego de mesa mantendrá a los jugadores interesados y emocionados a medida que compiten por ser el primero en colocar correctamente todas las cartas en la línea de tiempo.\",\r\n    \"yearRelease\": 2010,\r\n    \"imageBoardgame\": \"https://img.pccomponentes.com/articles/1072/10729407/2530-asmodee-timeline-inventos-juego-de-mesa-comprar.jpg\",\r\n    \"videoBoardgame\": \"https://www.youtube.com/watch?v=BKwa3NfB2mo\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/boardgames",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "boardgames"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/valorationsBoardgame",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"idBoardgame\": 1,\r\n    \"namePerson\": \"Ana\",\r\n    \"qualification\": 4.2,\r\n    \"review\": \"Good board game, but could be better.\"    \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/valorationsBoardgame",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "valorationsBoardgame"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
