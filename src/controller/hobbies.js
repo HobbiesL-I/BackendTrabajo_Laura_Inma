@@ -1,5 +1,5 @@
 const { response } = require('express');
-const { findAllBoardgames, findBoardgame, findBoardgameByName, findsAllBoardgameValorations, findAllValorationsFromABoardgame, addBoardgame, addBoardgameValoration, modifyBoardgame, modifyValoration, boardgameExistsById, boardgameExistsByName, valorationExistsByIdBoardgame } = require('../service/hobbies');
+const { findAllBoardgames, findBoardgame, findsAllBoardgameValorations, findAllValorationsFromABoardgame, addBoardgame, addBoardgameValoration, modifyBoardgame, removeBoardgame, removeBoardgameValoration, boardgameExistsById, boardgameExistsByName } = require('../service/hobbies');
 
 /**
  * Función para obtener los juegos de mesa. Si ademas en la ruta se mete ?name='nombre juego' se podrá buscar directamente por nombre un juego de mesa específico
@@ -106,7 +106,9 @@ const postBoardgame = (async (req, res) => {
     const imageBoardgame = req.body.imageBoardgame;
     const videoBoardgame = req.body.videoBoardgame;
 
-    await addBoardgame(name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame);
+    const isOnePlayer = !!onePlayer;
+
+    await addBoardgame(name, numberPlayers, isOnePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame);
 
     res.status(201).json({
         code: 201,
@@ -146,7 +148,7 @@ const postValorationBoardgame = async (req, res) => {
         });
     }
 
-    if(qualification < 0.0 || qualification > 5.0){
+    if (qualification < 0.0 || qualification > 5.0) {
         return res.status(400).json({
             code: 400,
             title: 'bad-request',
@@ -170,6 +172,9 @@ const postValorationBoardgame = async (req, res) => {
     });
 }
 
+/*
+*Función para editar los datos de un juego de mesa que ya está almacenado en la base de datos
+*/
 const putBoardgame = (async (req, res) => {
     const idBoardgame = req.params.idBoardgame;
 
@@ -181,42 +186,43 @@ const putBoardgame = (async (req, res) => {
         });
     }
 
-    const name = req.params.name;
-    const numberPlayers = req.params.numberPlayers;
-    const onePlayer = req.params.onePlayer;
-    const price = req.params.price;
-    const playTime = req.params.playTime;
-    const mecanic = req.params.mecanic;
-    const age = req.params.age;
-    const difficulty = req.params.difficulty;
-    const description = req.params.description;
-    const yearRelease = req.params.yearRelease;
-    const imageBoardgame = req.params.imageBoardgame;
-    const videoBoardgame = req.params.videoBoardgame;
+    const name = req.body.name;
+    const numberPlayers = req.body.numberPlayers;
+    const onePlayer = req.body.onePlayer;
+    const price = req.body.price;
+    const playTime = req.body.playTime;
+    const mecanic = req.body.mecanic;
+    const age = req.body.age;
+    const difficulty = req.body.difficulty;
+    const description = req.body.description;
+    const yearRelease = req.body.yearRelease;
+    const imageBoardgame = req.body.imageBoardgame;
+    const videoBoardgame = req.body.videoBoardgame;
 
-    await modifyBoardgame(idBoardgame, name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame);
+    const isOnePlayer = !!onePlayer;
+
+    await modifyBoardgame(idBoardgame, name, numberPlayers, isOnePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame);
     res.status(204).end();
 
 });
 
-const putValorationBoardgame =(async (req, res) => {
-    const idValoration = req.params.idValoration;
+/**
+ * Función para eliminar el juego de mesa y sus correspondientes valoraciones
+ */
+const deleteBoardgame = (async (req, res) => {
+    const idBoardgame = req.params.idBoardgame;
 
-    if (!await boardgameExistsById(idValoration)) {
-        return res.status(400).json({
+    if (!await boardgameExistsById(idBoardgame)) {
+        return res.status(404).json({
             code: 404,
             title: 'not-found',
-            message: 'The valoration has not been founded'
+            message: 'The boardgame has not been founded'
         });
     }
 
-    const namePerson= req.params.namePerson;
-    const qualification= req.params.qualification;
-    const review= req.params.review;
-
-    await modifyValoration(idValoration, namePerson, qualification, review);
+    await removeBoardgameValoration(idBoardgame);
+    await removeBoardgame(idBoardgame);
     res.status(204).end();
-
 });
 
 module.exports = {
@@ -227,5 +233,5 @@ module.exports = {
     postBoardgame,
     postValorationBoardgame,
     putBoardgame,
-    putValorationBoardgame
+    deleteBoardgame
 }

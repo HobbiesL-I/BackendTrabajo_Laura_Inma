@@ -90,14 +90,18 @@ const modifyBoardgame = (async (idBoardgame, name, numberPlayers, onePlayer, pri
 });
 
 /**
- * Función para modificar una valoración ya creada anteriormente.
+ * Función para eliminar un juego de mesa en concreto
  */
-const modifyValoration = (async (idValoration, namePerson, qualification, review) => {
-    return await db('valorationBoardgame').where({ idValoration: idValoration }).update({
-        namePerson: namePerson,
-        qualification: qualification,
-        review: review
-    });
+const removeBoardgame = (async (idBoardgame) => {
+    return await db('boardgame').where({ idBoardgame: idBoardgame }).del();
+});
+
+
+/**
+ * Función para eliminar la valoración de un juego de mesa.
+ */
+const removeBoardgameValoration = (async (idBoardgame) => {
+    return await db('valorationBoardgame').where({ idBoardgame: idBoardgame }).del();
 });
 
 /**
@@ -116,11 +120,6 @@ const boardgameExistsByName = (async (name) => {
     return boardgame != null;
 });
 
-/*const valorationExistsByIdBoardgame = async (idBoardgame) => {
-    const valorations = await db('valorationBoardgame').select('*').where('idBoardgame', idBoardgame);
-    return valorations != null;
-}*/
-
 module.exports = {
     findAllBoardgames,
     findBoardgame,
@@ -130,7 +129,8 @@ module.exports = {
     addBoardgame,
     addBoardgameValoration,
     modifyBoardgame,
-    modifyValoration,
+    removeBoardgame,
+    removeBoardgameValoration,
     boardgameExistsById,
     boardgameExistsByName
 }
