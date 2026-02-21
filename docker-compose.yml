@@ -1,0 +1,25 @@
+name: movies
+services:
+  db:
+    image: mariadb:11.3.2
+    container_name: movies-dev-db
+    environment:
+      MARIADB_USER: $MARIADB_USER
+      MARIADB_PASSWORD: $MARIADB_PASSWORD
+      MARIADB_DATABASE: $MARIADB_DATABASE
+      MYSQL_PORT: 3306
+      MARIADB_ROOT_PASSWORD: $MARIADB_ROOT_PASSWORD
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+
+  backend:
+    build: .
+    container_name: movies-dev-backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    env_file:
+      - .env

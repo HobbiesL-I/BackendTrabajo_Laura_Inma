@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const moviesRoutes = require("./routes/movies.routes");
+const moviesRoutes = require("./src/route/movies.routes");
 
 app.use(express.json());
 
