@@ -3,6 +3,9 @@ const { findAllBoardgames, findBoardgame, findsAllBoardgameValorations, findAllV
 
 /**
  * Función para obtener los juegos de mesa. Si ademas en la ruta se mete ?name='nombre juego' se podrá buscar directamente por nombre un juego de mesa específico
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
  */
 const getBoardGames = (async (req, res) => {
     const name = req.query.name;
@@ -28,6 +31,9 @@ const getBoardGames = (async (req, res) => {
 
 /**
  * Función para buscar un juego de mesa por id y que te saque toda la información relacionada con este.
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
  */
 const getBoardGame = (async (req, res) => {
     const idBoardgame = Number(req.params.idBoardgame);
@@ -45,9 +51,12 @@ const getBoardGame = (async (req, res) => {
 
 });
 
-/*
-* Función para obtener todas las valoraciones almacenadas en la base de datos.
-*/
+/**
+ * Función para obtener todas las valoraciones almacenadas en la base de datos.
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const getAllBoardagmesValorations = (async (req, res) => {
     const idBoardgame = req.query.idBoardgame;
 
@@ -71,7 +80,9 @@ const getAllBoardagmesValorations = (async (req, res) => {
 });
 
 /**
- *  Función para sacar todas las valoraciones de un juego de mesa específico
+ * Función para sacar todas las valoraciones de un juego de mesa específico
+ * @param {*} req 
+ * @param {*} res 
  */
 const getBoardgameValorations = (async (req, res) => {
     const idBoardgame = req.params.idBoardgame;
@@ -82,6 +93,9 @@ const getBoardgameValorations = (async (req, res) => {
 
 /**
  * Función para añadir un nuevo de juego a la base de datos. Si el nombre ya está registrado no te permite introducir nuevos datos.
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
  */
 const postBoardgame = (async (req, res) => {
     const name = req.body.name;
@@ -105,10 +119,11 @@ const postBoardgame = (async (req, res) => {
     const yearRelease = req.body.yearRelease;
     const imageBoardgame = req.body.imageBoardgame;
     const videoBoardgame = req.body.videoBoardgame;
+    const imageVideo = req.body.imageVideo;
 
     const isOnePlayer = !!onePlayer;
 
-    await addBoardgame(name, numberPlayers, isOnePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame);
+    await addBoardgame(name, numberPlayers, isOnePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame, imageVideo);
 
     res.status(201).json({
         code: 201,
@@ -124,6 +139,9 @@ const postBoardgame = (async (req, res) => {
  * Si el campo de qualification está vacio o es menor de 0.0 o mayor de 5.0 entonces no se puede almacenar.
  * Si el campo de review está vacio no se puede crear ya que es obligatorio rellenar el campo.
  * Si el campo de review supera los 500 caracteres da error ya que supera la capacidad de almacenamiento de la base de datos
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
  */
 const postValorationBoardgame = async (req, res) => {
     const idBoardgame = req.body.idBoardgame;
@@ -148,11 +166,11 @@ const postValorationBoardgame = async (req, res) => {
         });
     }
 
-    if (qualification < 0.0 || qualification > 5.0) {
+    if (qualification < 0.0 || qualification > 10.0) {
         return res.status(400).json({
             code: 400,
             title: 'bad-request',
-            message: 'The qualification must be between 0.0 and 5.0.'
+            message: 'The qualification must be between 0.0 and 10.0.'
         });
     }
 
@@ -172,9 +190,12 @@ const postValorationBoardgame = async (req, res) => {
     });
 }
 
-/*
-*Función para editar los datos de un juego de mesa que ya está almacenado en la base de datos
-*/
+/**
+ * Función para editar los datos de un juego de mesa que ya está almacenado en la base de datos
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const putBoardgame = (async (req, res) => {
     const idBoardgame = req.params.idBoardgame;
 
@@ -198,16 +219,20 @@ const putBoardgame = (async (req, res) => {
     const yearRelease = req.body.yearRelease;
     const imageBoardgame = req.body.imageBoardgame;
     const videoBoardgame = req.body.videoBoardgame;
+    const imageVideo = req.body.imageVideo;
 
     const isOnePlayer = !!onePlayer;
 
-    await modifyBoardgame(idBoardgame, name, numberPlayers, isOnePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame);
+    await modifyBoardgame(idBoardgame, name, numberPlayers, isOnePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame, imageVideo);
     res.status(204).end();
 
 });
 
 /**
  * Función para eliminar el juego de mesa y sus correspondientes valoraciones
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
  */
 const deleteBoardgame = (async (req, res) => {
     const idBoardgame = req.params.idBoardgame;

@@ -3,6 +3,7 @@ const { homedir, platform } = require('os');
 
 /**
  * Funcion para sacar todos los juegos de mesa almacenados en la base de datos
+ * @returns 
  */
 const findAllBoardgames = (async () => {
     return await db('boardgame').select('*');
@@ -10,6 +11,8 @@ const findAllBoardgames = (async () => {
 
 /**
  * Funcion para sacar los datos de un juego de mesa específico buscando por su id.
+ * @param {*} idBoardgame 
+ * @returns 
  */
 const findBoardgame = (async (idBoardgame) => {
     return await db('boardgame').select('*').where({ idBoardgame: idBoardgame }).first();
@@ -17,14 +20,16 @@ const findBoardgame = (async (idBoardgame) => {
 
 /**
  * Función para sacar los datos de un juego de mesa especifico buscando por su nombre
+ * @param {*} name 
+ * @returns 
  */
 const findBoardgameByName = (async (name) => {
     return await db('boardgame').select('*').where({ name, name }).first();
 });
 
-
 /**
  * Función para sacar todas las valoraciones que se han almacenado en la base de datos
+ * @returns 
  */
 const findsAllBoardgameValorations = (async () => {
     return await db('valorationBoardgame').select('*');
@@ -32,6 +37,8 @@ const findsAllBoardgameValorations = (async () => {
 
 /**
  * Función para sacar todas las valoraciones que se han almacenado de un juego de mesa en concreto
+ * @param {*} idBoardgame 
+ * @returns 
  */
 const findAllValorationsFromABoardgame = (async (idBoardgame) => {
     return await db('valorationBoardgame').select('*').where({ idBoardgame: idBoardgame });
@@ -39,8 +46,22 @@ const findAllValorationsFromABoardgame = (async (idBoardgame) => {
 
 /**
  * Función para añadir un juego de mesa a la base de datos
+ * @param {*} name 
+ * @param {*} numberPlayers 
+ * @param {*} onePlayer 
+ * @param {*} price 
+ * @param {*} playTime 
+ * @param {*} mecanic 
+ * @param {*} age 
+ * @param {*} difficulty 
+ * @param {*} description 
+ * @param {*} yearRelease 
+ * @param {*} imageBoardgame 
+ * @param {*} videoBoardgame 
+ * @param {*} imageVideo 
+ * @returns 
  */
-const addBoardgame = (async (name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame) => {
+const addBoardgame = (async (name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame, imageVideo) => {
     return await db('boardgame').insert({
         name: name,
         numberPlayers: numberPlayers,
@@ -53,12 +74,18 @@ const addBoardgame = (async (name, numberPlayers, onePlayer, price, playTime, me
         description: description,
         yearRelease: yearRelease,
         imageBoardgame: imageBoardgame,
-        videoBoardgame: videoBoardgame
+        videoBoardgame: videoBoardgame,
+        imageVideo: imageVideo
     });
 });
 
 /**
  * Función para añadir una valoración a un juego de mesa en concreto.
+ * @param {*} idBoardgame 
+ * @param {*} namePerson 
+ * @param {*} qualification 
+ * @param {*} review 
+ * @returns 
  */
 const addBoardgameValoration = (async (idBoardgame, namePerson, qualification, review) => {
     return await db('valorationBoardgame').insert({
@@ -71,8 +98,23 @@ const addBoardgameValoration = (async (idBoardgame, namePerson, qualification, r
 
 /**
  * Función para modificar los datos del juego de mesa almacenado en la base de datos. 
+ * @param {*} idBoardgame 
+ * @param {*} name 
+ * @param {*} numberPlayers 
+ * @param {*} onePlayer 
+ * @param {*} price 
+ * @param {*} playTime 
+ * @param {*} mecanic 
+ * @param {*} age 
+ * @param {*} difficulty 
+ * @param {*} description 
+ * @param {*} yearRelease 
+ * @param {*} imageBoardgame 
+ * @param {*} videoBoardgame 
+ * @param {*} imageVideo 
+ * @returns 
  */
-const modifyBoardgame = (async (idBoardgame, name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame) => {
+const modifyBoardgame = (async (idBoardgame, name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame, imageVideo) => {
     return await db('boardgame').where({ idBoardgame: idBoardgame }).update({
         name: name,
         numberPlayers: numberPlayers,
@@ -85,20 +127,24 @@ const modifyBoardgame = (async (idBoardgame, name, numberPlayers, onePlayer, pri
         description: description,
         yearRelease: yearRelease,
         imageBoardgame: imageBoardgame,
-        videoBoardgame: videoBoardgame
+        videoBoardgame: videoBoardgame,
+        imageVideo: imageVideo
     });
 });
 
 /**
  * Función para eliminar un juego de mesa en concreto
+ * @param {*} idBoardgame 
+ * @returns 
  */
 const removeBoardgame = (async (idBoardgame) => {
     return await db('boardgame').where({ idBoardgame: idBoardgame }).del();
 });
 
-
 /**
  * Función para eliminar la valoración de un juego de mesa.
+ * @param {*} idBoardgame 
+ * @returns 
  */
 const removeBoardgameValoration = (async (idBoardgame) => {
     return await db('valorationBoardgame').where({ idBoardgame: idBoardgame }).del();
@@ -106,6 +152,8 @@ const removeBoardgameValoration = (async (idBoardgame) => {
 
 /**
  * Función para localizar si un juego de mesa existe a través de su id
+ * @param {*} idBoardgame 
+ * @returns 
  */
 const boardgameExistsById = async (idBoardgame) => {
     const boardgame = await db('boardgame').where('idBoardgame', idBoardgame).first();
@@ -114,6 +162,8 @@ const boardgameExistsById = async (idBoardgame) => {
 
 /**
  * Función para localizar si un juego de mesa existe a través de su nombre
+ * @param {*} name 
+ * @returns 
  */
 const boardgameExistsByName = (async (name) => {
     const boardgame = await db('boardgame').select('*').where('name', name).first();
