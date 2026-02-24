@@ -142,15 +142,6 @@ const removeBoardgame = (async (idBoardgame) => {
 });
 
 /**
- * Función para eliminar la valoración de un juego de mesa.
- * @param {*} idBoardgame 
- * @returns 
- */
-const removeBoardgameValoration = (async (idBoardgame) => {
-    return await db('valorationBoardgame').where({ idBoardgame: idBoardgame }).del();
-});
-
-/**
  * Función para localizar si un juego de mesa existe a través de su id
  * @param {*} idBoardgame 
  * @returns 

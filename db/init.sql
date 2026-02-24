@@ -10,7 +10,7 @@ Create table boardgame(
     mecanic varchar(200) not null,
     age varchar(10) not null,
     difficulty varchar(25) default null,
-    description varchar(2000) default null,
+    description text default null,
     yearRelease int unsigned default null,
     imageBoardgame varchar(255) default null,
     videoBoardgame varchar(255) default null,
@@ -22,8 +22,8 @@ Create table valorationBoardgame(
     idBoardgame int unsigned null,
     namePerson varchar(100) default 'anonymous',
     qualification decimal(3,1) not null,
-    review varchar(500) not null,
-    foreign key (idBoardgame) references boardgame(idBoardgame)
+    review text not null,
+    foreign key (idBoardgame) references boardgame(idBoardgame) on delete cascade
 );
 
 insert into boardgame (name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame, imageVideo) values
