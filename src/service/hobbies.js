@@ -171,7 +171,6 @@ module.exports = {
     addBoardgameValoration,
     modifyBoardgame,
     removeBoardgame,
-    removeBoardgameValoration,
     boardgameExistsById,
     boardgameExistsByName
 }

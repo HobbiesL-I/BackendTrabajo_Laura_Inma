@@ -1,5 +1,5 @@
 const { response } = require('express');
-const { findAllBoardgames, findBoardgame, findsAllBoardgameValorations, findAllValorationsFromABoardgame, addBoardgame, addBoardgameValoration, modifyBoardgame, removeBoardgame, removeBoardgameValoration, boardgameExistsById, boardgameExistsByName } = require('../service/hobbies');
+const { findAllBoardgames, findBoardgame, findsAllBoardgameValorations, findAllValorationsFromABoardgame, addBoardgame, addBoardgameValoration, modifyBoardgame, removeBoardgame, boardgameExistsById, boardgameExistsByName } = require('../service/hobbies');
 
 /**
  * Función para obtener los juegos de mesa. Si ademas en la ruta se mete ?name='nombre juego' se podrá buscar directamente por nombre un juego de mesa específico
@@ -245,7 +245,6 @@ const deleteBoardgame = (async (req, res) => {
         });
     }
 
-    await removeBoardgameValoration(idBoardgame);
     await removeBoardgame(idBoardgame);
     res.status(204).end();
 });
