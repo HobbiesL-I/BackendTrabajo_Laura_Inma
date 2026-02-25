@@ -3,7 +3,7 @@ db:
   port: 3306
   user: laura
   password: laura
-  database: moviesli
+  database: hobbies
 
 service:
   port: 8080

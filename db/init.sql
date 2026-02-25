@@ -50,7 +50,6 @@ insert into valorationBoardgame(idBoardgame, namePerson, qualification, review) 
 (6, 'FillerRápido', 7.6, 'Colección sets simple pero traicionero. Virus contagian bien, ideal viajes. Con 2 jugadores menos brillo.'),
 (10, 'DuoCivil', 9.5, '7 Wonders Duel: draft pirámide perfecto para parejas. Ciencia/militar/puntos, rejugable eterno sin downtime.'),
 (10, 'Estratega2J', 9.2, 'Maravillas y comercio tenso mueven peón victoria. Profundo en 30min, mejor duo que original grupo.');
-USE moviesli;
 
 CREATE TABLE movies (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
