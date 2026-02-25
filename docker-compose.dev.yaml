@@ -1,19 +1,15 @@
+name: moviesli
 services:
-  
-
   db:
-    image: mariadb:11
-    restart: always
+    image: mariadb:11.3.2
+    container_name: moviesli-dev-db
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: moviesli
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
+      MYSQL_USER: $MARIADB_USER
+      MYSQL_PASSWORD: $MARIADB_PASSWORD
+      MYSQL_DATABASE: $MARIADB_DATABASE
+      MYSQL_PORT: $MARIADB_PORT
+      MYSQL_ROOT_PASSWORD: $MARIADB_ROOT_PASSWORD
     ports:
       - "3306:3306"
     volumes:
-      - db_data:/var/lib/mysql
       - ./db:/docker-entrypoint-initdb.d
-
-volumes:
-  db_data:
