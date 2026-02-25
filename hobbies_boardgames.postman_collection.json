@@ -220,7 +220,7 @@
       "response": []
     },
     {
-      "name": "/moviesli/movies",
+      "name": "/hobbies/movies",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
@@ -247,7 +247,7 @@
       "response": []
     },
     {
-      "name": "/moviesli/movies/:id",
+      "name": "/hobbies/movies/:id",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
@@ -275,7 +275,7 @@
       "response": []
     },
     {
-      "name": "/moviesli/valorations/:movie_id",
+      "name": "/hobbies/valorations/:movie_id",
       "request": {
         "method": "GET",
         "header": [],
@@ -296,7 +296,7 @@
       "response": []
     },
     {
-      "name": "/moviesli/valorations",
+      "name": "/hobbies/valorations",
       "request": {
         "method": "GET",
         "header": [],
@@ -316,7 +316,7 @@
       "response": []
     },
     {
-      "name": "/moviesli/movies",
+      "name": "/hobbies/movies",
       "request": {
         "method": "POST",
         "header": [],
@@ -345,7 +345,7 @@
       "response": []
     },
     {
-      "name": "/moviesli/valorations",
+      "name": "/hobbies/valorations",
       "request": {
         "method": "POST",
         "header": [],
@@ -374,7 +374,7 @@
       "response": []
     },
     {
-      "name": "/moviesli/movies/:id",
+      "name": "/hobbies/movies/:id",
       "request": {
         "method": "PUT",
         "header": [],
@@ -404,7 +404,7 @@
       "response": []
     },
     {
-      "name": "/moviesli/movies/:id",
+      "name": "/hobbies/movies/:id",
       "request": {
         "method": "DELETE",
         "header": [],
