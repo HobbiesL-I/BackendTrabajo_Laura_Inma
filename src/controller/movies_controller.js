@@ -13,9 +13,9 @@ const getMovie = (async (req, res) => {
     }
 
 
-    const movie = await getMovieById(id);
+    const movies = await getMovieById(id);
 
-    return res.status(200).json(movie);
+    return res.status(200).json(movies);
 });
 
 const getmovievaloration = (async (req, res) => {
