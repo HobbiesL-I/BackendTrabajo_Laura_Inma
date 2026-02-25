@@ -1,8 +1,8 @@
-name: moviesli
+name: hobbies
 services:
   db:
     image: mariadb:11.3.2
-    container_name: moviesli-dev-db
+    container_name: hobbies-dev-db
     environment:
       MYSQL_USER: $MARIADB_USER
       MYSQL_PASSWORD: $MARIADB_PASSWORD
