@@ -1,15 +1,5 @@
 services:
-  backend:
-    build: .
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-    environment:
-      - DB_HOST=db
-      - DB_USER=admin
-      - DB_PASSWORD=admin
-      - DB_NAME=moviesli
+  
 
   db:
     image: mariadb:11
