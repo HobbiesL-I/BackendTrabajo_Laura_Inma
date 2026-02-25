@@ -1,21 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const { getMovies, getMovie, postmovie, putmovie, deletemovie,  getmovievaloration, getvalorationmovie} = require("../controller/movies_controller");
-// GET - Obtener todas las películas
-router.get("/moviesli/movies",getMovies);
-
-// GET - Obtener una película por ID
-router.get("/moviesli/movies/:id", getMovie);
-router.get("/moviesli/valorations", getmovievaloration);
-router.get("/moviesli/valorations/:movie_id", getvalorationmovie);
-
-// POST - Crear una película
-router.post("/moviesli/movies", postmovie);
-
-// PUT - Editar una película
-router.put("/moviesli/movies/:id", putmovie);
-
-// DELETE - Eliminar una película
-router.delete("/moviesli/movies/:id", deletemovie);
+router.get("/movies", getMovies);
+router.get("/movies/:id", getMovie);
+router.get("/valorations", getmovievaloration);
+router.get("/valorations/:movie_id", getvalorationmovie);
+router.post("/movies", postmovie);
+router.put("/movies/:id", putmovie);
+router.delete("/movies/:id", deletemovie);
 
 module.exports = router;
