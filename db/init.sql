@@ -10,16 +10,14 @@ CREATE TABLE movies (
   director VARCHAR(255),
   actors TEXT,
   duration INT,
-  rating DECIMAL(3,1)
 );
 
-CREATE TABLE valoration (
+CREATE TABLE valorations (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   movie_id INT UNSIGNED NULL,
-  user_name VARCHAR(100) DEFAULT 'anonimous',
+  user_name VARCHAR(100) DEFAULT 'anonymous',
   score DECIMAL(3,1) NULL,
   comment TEXT NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
 );
 INSERT INTO movies (title, description, image, year, genre, director, actors, duration, rating) VALUES
@@ -40,4 +38,16 @@ INSERT INTO movies (title, description, image, year, genre, director, actors, du
 ('Yo antes de ti', 'Una joven cuida a un hombre en silla de ruedas.', 'yo antes de ti.jpg', 2016, 'Romance', 'Thea Sharrock', 'Emilia Clarke, Sam Claflin', 110, 7.4),
 ('Divergent', 'Una joven descubre que no encaja en ninguna facción.', 'Divergent.jpg', 2014, 'Romance', 'Neil Burger', 'Shailene Woodley, Theo James', 139, 6.7),
 ('Sr. y Sra. Smith', 'Dos asesinos descubren que están casados entre sí.', 'sr y sra smith.jpg', 2005, 'Romance', 'Doug Liman', 'Brad Pitt, Angelina Jolie', 120, 6.5);
+
+INSERT INTO valorations (movie_id, user_name, score, comment) VALUES
+(1, 'Carlos García', 9.5, 'Una obra maestra del cine moderno, impresionante.'),
+(1, 'Laura Martínez', 8.0, 'Muy buena película, aunque el final me dejó pensando.'),
+(2, 'anónimo', 6.5, 'Entretenida pero no cumplió mis expectativas.'),
+(2, 'Pedro Sánchez', 10.0, 'La mejor película que he visto en años, absolutamente increíble.'),
+(3, 'María López', 7.5, 'Buena trama y actuaciones sólidas, la recomiendo.'),
+(3, 'anónimo', 5.0, 'Regular, hay escenas que se hacen largas y aburridas.'),
+(4, 'Sofía Ruiz', 9.0, 'Me encantó la fotografía y la banda sonora, espectacular.'),
+(4, 'Javier Torres', 4.0, 'No me convenció, la historia es muy predecible.'),
+(5, 'Elena Gómez', 8.5, 'Gran película, emotiva y bien dirigida.'),
+(5, 'anónimo', 7.0, 'Bastante buena, aunque algunos personajes podrían desarrollarse más.');
 

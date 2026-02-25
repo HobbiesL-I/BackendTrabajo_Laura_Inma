@@ -95,6 +95,7 @@ module.exports = {
     getMovies,
     getMovie,
     postmovie,
+    postvaloration,
     putmovie,
     deletemovie,
     getmovievaloration,
