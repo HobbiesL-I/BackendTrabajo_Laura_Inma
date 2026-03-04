@@ -42,8 +42,7 @@ const postmovie = (async (req, res) => {
     const director = req.body.director;
     const actors = req.body.actors;
     const duration = req.body.duration;
-    const rating = req.body.rating;
-    await createMovie(title, description, image, year, genre, director, actors, duration, rating);
+    await createMovie(title, description, image, year, genre, director, actors, duration);
     return res.status(201).json({ code: 201, title: "created", message: "Pelicula creada correctamente" });
 });
 
@@ -56,12 +55,11 @@ const postvaloration = (async (req, res) => {
     const user_name = req.body.user_name;
     const score = req.body.score;
     const comment = req.body.comment;
-    const create_at = req.body.create_at;
 
     if (comment === undefined || comment === null) {
         return res.status(400).json({ code: 400, title: "bad request", message: "El comentario es obligatorio" });
     }
-    await createvaloration(movie_id, user_name, score, comment, create_at);
+    await createvaloration(movie_id, user_name, score, comment);
     return res.status(201).json({ code: 201, title: "created", message: "Valoración creada correctamente" });
 });
 
@@ -78,8 +76,7 @@ const putmovie = (async (req, res) => {
     const director = req.body.director;
     const actors = req.body.actors;
     const duration = req.body.duration;
-    const rating = req.body.rating;
-    await modifymovie(id, title, description, image, year, genre, director, actors, duration, rating);
+    await modifymovie(id, title, description, image, year, genre, director, actors, duration);
     return res.status(204).end();
 });
 const deletemovie = (async (req, res) => {
