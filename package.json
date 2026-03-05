@@ -1,7 +1,8 @@
 {
   "name": "hobbies_backend",
   "scripts": {
-    "start": "node src/app.js --config config.local.yaml"
+    "start": "node src/app.js --config config.local.yaml",
+    "test": "jest src/test/unit"
   },
   "dependencies": {
     "cors": "^2.8.6",
@@ -10,5 +11,12 @@
     "knex": "^3.1.0",
     "mysql": "2.18.1",
     "yargs": "18.0.0"
+  },
+
+  "devDependencies": {
+    "chai": "4.4.1",
+    "jest": "30.2.0"
   }
 }
+
+
