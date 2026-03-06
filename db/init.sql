@@ -71,14 +71,9 @@ CREATE TABLE valorations (
   comment TEXT NOT NULL,
   FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
 );
-<<<<<<< HEAD
-INSERT INTO movies (title, description, image, year, genre, director, actors, duration, rating) VALUES
-('Iron Man', 'Tony Stark se enfrenta a un poderoso enemigo mientras lucha con su propia identidad.', 'iron-man.jpg', 2008, 'Ciencia Ficción', 'Jon Favreau', 'Robert Downey Jr., Gwyneth Paltrow', 126 ),
-=======
 
 INSERT INTO movies (title, description, image, year, genre, director, actors, duration) VALUES
 ('Iron Man', 'Tony Stark se enfrenta a un poderoso enemigo mientras lucha con su propia identidad.', 'iron-man.jpg', 2008, 'Ciencia Ficción', 'Jon Favreau', 'Robert Downey Jr., Gwyneth Paltrow', 126),
->>>>>>> 32023d4a65aa3c1cc506189f22b7bc2f989e08b7
 ('Guardianes de la Galaxia', 'Un grupo de inadaptados se une para salvar la galaxia.', 'guardianes-de-la-galaxia.jpg', 2014, 'Ciencia Ficción', 'James Gunn', 'Chris Pratt, Zoe Saldana, Dave Bautista', 121),
 ('Capitana Marvel', 'Carol Danvers descubre sus poderes y su verdadero origen.', 'capitana marvel.jpg', 2019, 'Ciencia Ficción', 'Anna Boden', 'Brie Larson, Samuel L. Jackson', 124),
 ('X-Men', 'Un grupo de mutantes lucha por su supervivencia.', 'MARVEL X-MEN.jpg', 2000, 'Ciencia Ficción', 'Bryan Singer', 'Hugh Jackman, Patrick Stewart, Ian McKellen', 104),

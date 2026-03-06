@@ -24,28 +24,16 @@ const createMovie = (async (title, description, image, year, genre, director, ac
         genre: genre,
         director: director,
         actors: actors,
-<<<<<<< HEAD
-        duration: duration,
-    });
-});
-
-const createvaloration = (async (movie_id, user_name, score, comment ) => {
-=======
         duration: duration
     });
 });
 
 const createvaloration = (async (movie_id, user_name, score, comment) => {
->>>>>>> 32023d4a65aa3c1cc506189f22b7bc2f989e08b7
     return await db('valorations').insert({
         movie_id: movie_id,
         user_name: user_name,
         score: score,
-<<<<<<< HEAD
-        comment: comment,
-=======
         comment: comment
->>>>>>> 32023d4a65aa3c1cc506189f22b7bc2f989e08b7
     });
 });
 
@@ -59,11 +47,7 @@ const modifymovie = (async (id, title, description, image, year, genre, director
         genre: genre,
         director: director,
         actors: actors,
-<<<<<<< HEAD
-        duration: duration,
-=======
         duration: duration
->>>>>>> 32023d4a65aa3c1cc506189f22b7bc2f989e08b7
     });
 });
 const deleteMovie = (async (id) => {
