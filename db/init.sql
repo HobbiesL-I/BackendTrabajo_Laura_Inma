@@ -23,7 +23,7 @@ Create table valorationBoardgame(
     idBoardgame int unsigned null,
     namePerson varchar(100) default 'anonymous',
     qualification decimal(3,1) not null,
-    review text not null,
+    review varchar(500) not null,
     foreign key (idBoardgame) references boardgame(idBoardgame) on delete cascade
 );
 

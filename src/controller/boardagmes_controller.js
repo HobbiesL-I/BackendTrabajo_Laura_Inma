@@ -65,16 +65,16 @@ const getAllBoardagmesValorations = (async (req, res) => {
         return res.status(200).json(valorations);
     }
 
-    else if (req.query.name != undefined) {
-        if (!await valorationExistsByIdBoardgame(idBoardgame)) {
+    else if (req.query.idBoardgame != undefined) {
+        if (!await findAllValorationsFromABoardgame(idBoardgame)) {
             return res.status(404).json({
                 code: 404,
                 title: 'not-found',
-                message: 'the valorations have not been founded'
+                message: 'the boardgame have not been founded'
             });
         }
 
-        const valorations = await valorationExistsByIdBoardgame(idBoardgame);
+        const valorations = await findAllValorationsFromABoardgame(idBoardgame);
         res.status(200).json(valorations);
     }
 });
@@ -86,6 +86,14 @@ const getAllBoardagmesValorations = (async (req, res) => {
  */
 const getBoardgameValorations = (async (req, res) => {
     const idBoardgame = req.params.idBoardgame;
+
+    if (!await findBoardgame(idBoardgame)) {
+        return res.status(404).json({
+            code: 404,
+            title: 'not-found',
+            message: 'the boardgame have not been founded'
+        });
+    }
 
     const valorations = await findAllValorationsFromABoardgame(idBoardgame);
     res.status(200).json(valorations);
@@ -129,7 +137,7 @@ const postBoardgame = (async (req, res) => {
     res.status(201).json({
         code: 201,
         title: 'created',
-        message: 'The valoration has been added correctly.'
+        message: 'The boardgame has been added correctly.'
     });
 
 });
