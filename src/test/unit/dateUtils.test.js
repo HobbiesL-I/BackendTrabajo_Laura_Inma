@@ -16,7 +16,7 @@ describe('dateUtils', () => {
         let years = getYearsFromNow(new Date('2024-02-03'));
         expect(years).equal(3);
 
-        years = getYearsFromNow(new Date ('2016-02-03'));
+        years = getYearsFromNow(new Date('2016-02-03'));
         expect(years).equal(11);
     })
 
@@ -30,4 +30,13 @@ describe('dateUtils', () => {
         days = getDays(new Date('2024-01-01'), new Date('2024-01-01'));
         expect(days).equal(0);
     });
+    it('getDaysFromNow', () => {
+        let days = getDaysFromNow(new Date('2026-02-03'));
+        expect(days).equal(0);
+        days = getDaysFromNow(new Date('2026-02-06'));
+        expect(days).equal(3);
+        days = getDaysFromNow(new Date('2026-01-30'));
+        expect(days).equal(4);
+    });
 });
+
