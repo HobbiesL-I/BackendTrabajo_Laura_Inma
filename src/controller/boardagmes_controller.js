@@ -120,10 +120,11 @@ const postBoardgame = (async (req, res) => {
     const imageBoardgame = req.body.imageBoardgame;
     const videoBoardgame = req.body.videoBoardgame;
     const imageVideo = req.body.imageVideo;
+    const imageBoardgame2 = req.body.imageBoardgame2;
 
     const isOnePlayer = !!onePlayer;
 
-    await addBoardgame(name, numberPlayers, isOnePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame, imageVideo);
+    await addBoardgame(name, numberPlayers, isOnePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame, imageVideo, imageBoardgame2);
 
     res.status(201).json({
         code: 201,
@@ -220,10 +221,11 @@ const putBoardgame = (async (req, res) => {
     const imageBoardgame = req.body.imageBoardgame;
     const videoBoardgame = req.body.videoBoardgame;
     const imageVideo = req.body.imageVideo;
+    const imageBoardgame2 = req.body.imageBoardgame2;
 
     const isOnePlayer = !!onePlayer;
 
-    await modifyBoardgame(idBoardgame, name, numberPlayers, isOnePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame, imageVideo);
+    await modifyBoardgame(idBoardgame, name, numberPlayers, isOnePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame, imageVideo, imageBoardgame2);
     res.status(204).end();
 
 });

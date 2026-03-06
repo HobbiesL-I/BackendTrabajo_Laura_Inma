@@ -59,9 +59,10 @@ const findAllValorationsFromABoardgame = (async (idBoardgame) => {
  * @param {*} imageBoardgame 
  * @param {*} videoBoardgame 
  * @param {*} imageVideo 
+ * @param {*} imageBoardgame2
  * @returns 
  */
-const addBoardgame = (async (name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame, imageVideo) => {
+const addBoardgame = (async (name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame, imageVideo, imageBoardgame2) => {
     return await db('boardgame').insert({
         name: name,
         numberPlayers: numberPlayers,
@@ -75,7 +76,8 @@ const addBoardgame = (async (name, numberPlayers, onePlayer, price, playTime, me
         yearRelease: yearRelease,
         imageBoardgame: imageBoardgame,
         videoBoardgame: videoBoardgame,
-        imageVideo: imageVideo
+        imageVideo: imageVideo,
+        imageBoardgame2: imageBoardgame2
     });
 });
 
@@ -112,9 +114,10 @@ const addBoardgameValoration = (async (idBoardgame, namePerson, qualification, r
  * @param {*} imageBoardgame 
  * @param {*} videoBoardgame 
  * @param {*} imageVideo 
+ * @param {*} imageBoardgame2
  * @returns 
  */
-const modifyBoardgame = (async (idBoardgame, name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame, imageVideo) => {
+const modifyBoardgame = (async (idBoardgame, name, numberPlayers, onePlayer, price, playTime, mecanic, age, difficulty, description, yearRelease, imageBoardgame, videoBoardgame, imageVideo, imageBoardgame2) => {
     return await db('boardgame').where({ idBoardgame: idBoardgame }).update({
         name: name,
         numberPlayers: numberPlayers,
@@ -128,7 +131,8 @@ const modifyBoardgame = (async (idBoardgame, name, numberPlayers, onePlayer, pri
         yearRelease: yearRelease,
         imageBoardgame: imageBoardgame,
         videoBoardgame: videoBoardgame,
-        imageVideo: imageVideo
+        imageVideo: imageVideo,
+        imageBoardgame2: imageBoardgame2
     });
 });
 
