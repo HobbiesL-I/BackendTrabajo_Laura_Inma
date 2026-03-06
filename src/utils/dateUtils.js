@@ -4,7 +4,7 @@ function getDays(fromDate, toDate) {
 
 }
 
-function getDaysfromNow(date) {
+function getDaysFromNow(date) {
     const now = new Date(Date.now());
     return getDays(date, now);
 }
@@ -15,7 +15,7 @@ function getYearsFromNow(date) {
 }
 
 module.exports = {
-    getDaysfromNow,
+    getDaysFromNow,
     getYearsFromNow,
     getDays
 }
