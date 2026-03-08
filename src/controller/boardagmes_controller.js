@@ -209,7 +209,7 @@ const putBoardgame = (async (req, res) => {
     const idBoardgame = req.params.idBoardgame;
 
     if (!await boardgameExistsById(idBoardgame)) {
-        return res.status(400).json({
+        return res.status(404).json({
             code: 404,
             title: 'not-found',
             message: 'The boardgame has not been founded'
