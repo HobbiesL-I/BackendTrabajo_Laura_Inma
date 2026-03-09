@@ -1,0 +1,1246 @@
+{
+  "info": {
+    "_postman_id": "2d54144a-681e-4d94-bf65-192f7433fdec",
+    "name": "hobbies",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49087939",
+    "_collection_link": "https://go.postman.co/collection/49087939-2d54144a-681e-4d94-bf65-192f7433fdec?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "/hobbies/boardgames",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.response.to.have.status(200);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: There are no boardgames\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "const data = pm.response.json();\r",
+              "pm.test(\"Response contains a list of board games\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.expect(data).to.be.an('array');\r",
+              "        pm.expect(data.length).to.be.greaterThan(0);\r",
+              "    }\r",
+              "   \r",
+              "    else if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: There are no boardgames\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Array has at least 1 boardgame\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.expect(data.length).to.be.above(0);\r",
+              "    }\r",
+              "\r",
+              "    else if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: There are no boardgames\");\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/hobbies/boardgames",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "boardgames"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/boardgames/:idBoardgame",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.response.to.have.status(200);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "const data = pm.response.json();\r",
+              "pm.test(\"Boardgame has all required propierties\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.expect(data).to.have.property(\"idBoardgame\").that.is.a(\"number\");\r",
+              "        pm.expect(data).to.have.property(\"name\").that.is.a(\"string\");\r",
+              "        pm.expect(data).to.have.property(\"numberPlayers\").that.is.a(\"string\");\r",
+              "        pm.expect(data).to.have.property(\"price\").that.is.a(\"number\");\r",
+              "        pm.expect(data).to.have.property(\"playTime\").that.is.a(\"string\");\r",
+              "        pm.expect(data).to.have.property(\"mecanic\").that.is.a(\"string\");\r",
+              "        pm.expect(data).to.have.property(\"age\").that.is.a(\"string\");\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: This idBoardgame does not exist\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Name checkout\", function () {\r",
+              "    if(pm.response.code === 200){\r",
+              "        pm.expect(data).to.have.property(\"name\").to.be.a(\"string\").that.is.not.empty;\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: This idBoardgame does not exist\");\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/hobbies/boardgames/30",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "boardgames",
+            "30"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/valorationsBoardgame",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.response.to.have.status(200);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "const data = pm.response.json();\r",
+              "pm.test(\"Response contains a list of valorations\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.expect(data).to.be.an('array');\r",
+              "        pm.expect(data.length).to.be.greaterThan(0);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: There are no valorations\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Array has at least 1 valoration\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.expect(data).to.have.lengthOf.at.least(1);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: There are no valorations\");\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/hobbies/valorationsBoardgame",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "valorationsBoardgame"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/valorationsBoardgame/:idBoardgame",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.response.to.have.status(200);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: There are no valorations for this boardgame\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "const data = pm.response.json();\r",
+              "pm.test(\"Valorations of a boardgame has all required propierties ?\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        data.forEach((valoration) => {\r",
+              "            pm.expect(valoration).to.have.property(\"idValorationBoardgame\").that.is.a(\"number\");\r",
+              "            pm.expect(valoration).to.have.property(\"idBoardgame\").that.is.a(\"number\");\r",
+              "            pm.expect(valoration).to.have.property(\"namePerson\").that.is.a(\"string\");\r",
+              "            pm.expect(valoration).to.have.property(\"qualification\").that.is.a(\"number\");\r",
+              "            pm.expect(valoration).to.have.property(\"review\").that.is.a(\"string\");\r",
+              "        });\r",
+              "    }\r",
+              "\r",
+              "    else if (pm.response.code === 404) {\r",
+              "        console.log(\"404: There are no valorations for this boardgame\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"idBoardgame exist?\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 200) {\r",
+              "        data.forEach((valoration) => {\r",
+              "        pm.expect(valoration).to.have.property(\"idBoardgame\").to.exist.and.not.null;\r",
+              "        });    \r",
+              "    }\r",
+              "\r",
+              "    else if (pm.response.code === 404) {\r",
+              "        console.log(\"404: This idBoardgame does not exist\");\r",
+              "    }    \r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/hobbies/valorationsBoardgame/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "valorationsBoardgame",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/boardgames",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 201) {\r",
+              "        pm.response.to.have.status(201);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: The boardgame is already on the list\")\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"New boardgame has all required propierties\", function () {\r",
+              "    if(pm.response.code === 201){\r",
+              "       const schema = {\r",
+              "        \"type\": \"object\",\r",
+              "        \"properties\": {\r",
+              "            \"idBoardgame\": { \"type\": \"integer\" },\r",
+              "            \"name\": { \"type\": \"string\" },\r",
+              "            \"numberPlayers\": { \"type\": \"string\" },\r",
+              "            \"onePlayer\": { \"type\": \"number\" },\r",
+              "            \"price\": { \"type\": \"number\" },\r",
+              "            \"playTime\": { \"type\": \"string\" },\r",
+              "            \"mecanic\": { \"type\": \"string\" },\r",
+              "            \"age\": { \"type\": \"string\" },\r",
+              "            \"difficulty\": { \"type\": [\"string\", \"null\"] },\r",
+              "            \"description\": { \"type\": [\"string\", \"null\"] },\r",
+              "            \"yearRelease\": { \"type\": [\"integer\", \"null\"] },\r",
+              "            \"imageBoardgame\": { \"type\": [\"string\", \"null\"] },\r",
+              "            \"videoBoardgame\": { \"type\": [\"string\", \"null\"] },\r",
+              "            \"imageVideo\": { \"type\": [\"string\", \"null\"] },\r",
+              "            \"imageBoardgame2\": { \"type\": [\"string\", \"null\"] }\r",
+              "            }\r",
+              "        };\r",
+              "        pm.response.to.have.jsonSchema(schema);\r",
+              "    }\r",
+              "    \r",
+              "    \r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: The boardgame has not been created because it is already on the list.\")\r",
+              "    }\r",
+              "    \r",
+              "});\r",
+              "\r",
+              "const body = pm.response.json();\r",
+              "pm.test(\"Name is correct\", function () {\r",
+              "    const data = pm.response.json();\r",
+              "    if(pm.response.code === 201) {\r",
+              "        pm.expect(data.name).to.eql(body.name);\r",
+              "    }\r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: The boardgame has not been created because it is already on the list.\")\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Timeline\",\r\n    \"numberPlayers\": \"2-6\",\r\n    \"onePlayer\": 0,\r\n    \"price\": 12.99,\r\n    \"playTime\": \"15 min\",\r\n    \"mecanic\": \"Cartas de Doble Cara\",\r\n    \"age\": \"8+\",\r\n    \"difficulty\": \"Fácil\",\r\n    \"description\": \"Con su fascinante temática de inventos y descubrimientos, este juego de mesa mantendrá a los jugadores interesados y emocionados a medida que compiten por ser el primero en colocar correctamente todas las cartas en la línea de tiempo.\",\r\n    \"yearRelease\": 2010,\r\n    \"imageBoardgame\": \"https://img.pccomponentes.com/articles/1072/10729407/2530-asmodee-timeline-inventos-juego-de-mesa-comprar.jpg\",\r\n    \"videoBoardgame\": \"https://www.youtube.com/watch?v=BKwa3NfB2mo\",\r\n    \"imageVideo\": \"https://i0.wp.com/misutmeeple.com/wp-content/uploads/2017/04/timeline_cartas.jpg?resize=1200%2C661&ssl=1\",\r\n    \"imageBoardgame2\": \"https://juegosdemesayrol.com/wp-content/uploads/4C8A0525.jpg\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/boardgames",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "boardgames"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/valorationsBoardgame",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 201) {\r",
+              "        pm.response.to.have.status(201);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 400) {\r",
+              "        pm.response.to.have.status(400);\r",
+              "        console.log(\"409: There are errors in the fields.\")\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: There is no boardgame to valorate.\")\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"New boardgame has all required propierties\", function () {\r",
+              "    if(pm.response.code === 201){\r",
+              "       const schema = {\r",
+              "        \"type\": \"object\",\r",
+              "        \"properties\": {\r",
+              "            \"idValorationBoardgame\": { \"type\": \"integer\" },\r",
+              "            \"idBoardgame\": { \"type\": \"integer\" },\r",
+              "            \"namePerson\": { \"type\": \"string\" },\r",
+              "            \"qualification\": { \"type\": \"number\" },\r",
+              "            \"review\": { \"type\": \"string\" },\r",
+              "            }\r",
+              "        };\r",
+              "        pm.response.to.have.jsonSchema(schema);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 400) {\r",
+              "        pm.response.to.have.status(400);\r",
+              "        console.log(\"409: There are errors in the fields.\")\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: There is no boardgame to valorate.\")\r",
+              "    }\r",
+              "    \r",
+              "});\r",
+              "\r",
+              "const data = pm.response.json();\r",
+              "const body = pm.response.json();\r",
+              "pm.test(\"idBoardgame is correct\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 201) {\r",
+              "        pm.expect(data.idBoardgame).to.eql(body.idBoardgame);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 400) {\r",
+              "        pm.response.to.have.status(400);\r",
+              "        console.log(\"409: There are errors in the fields.\")\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: The boardgame has not been created because it is already on the list.\")\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"idBoardgame\": 4,\r\n    \"namePerson\": \"Ana\",\r\n    \"qualification\": 4.2,\r\n    \"review\": \"Good board game, but could be better.\"    \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/valorationsBoardgame",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "valorationsBoardgame"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/boardgames/:idBoardgame",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code correct\", function () {\r",
+              "    if(pm.response.code === 204) {\r",
+              "        pm.response.to.have.status(204);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: The boardgame has not been founded\")\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Updated boardgame has all properties\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 204) {\r",
+              "        const sentName = JSON.parse(pm.request.body.raw).name;\r",
+              "        pm.collectionVariables.set(\"expectedName\", sentName);\r",
+              "    }\r",
+              "   \r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"The boardgame has not been founded.\")\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "\r",
+              "pm.test(\"Name is not empty\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 204) {\r",
+              "        const requestBody = pm.request.body.raw;\r",
+              "        pm.expect(requestBody).to.exist.and.not.be.empty;\r",
+              "\r",
+              "        const requestBodyObject = JSON.parse(requestBody);\r",
+              "\r",
+              "        pm.expect(requestBodyObject).to.have.property(\"name\").to.not.be.empty;\r",
+              "    }\r",
+              "    \r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"The boardgame has not been founded.\")\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Timeline 1ºEdition\",\r\n    \"numberPlayers\": \"2-6\",\r\n    \"onePlayer\": 0,\r\n    \"price\": 12.99,\r\n    \"playTime\": \"15 min\",\r\n    \"mecanic\": \"Cartas de Doble Cara\",\r\n    \"age\": \"8+\",\r\n    \"difficulty\": \"Fácil\",\r\n    \"description\": \"Con su fascinante temática de inventos y descubrimientos, este juego de mesa mantendrá a los jugadores interesados y emocionados a medida que compiten por ser el primero en colocar correctamente todas las cartas en la línea de tiempo.\",\r\n    \"yearRelease\": 2010,\r\n    \"imageBoardgame\": \"https://img.pccomponentes.com/articles/1072/10729407/2530-asmodee-timeline-inventos-juego-de-mesa-comprar.jpg\",\r\n    \"videoBoardgame\": \"https://www.youtube.com/watch?v=BKwa3NfB2mo\",\r\n    \"imageVideo\": \"https://img.youtube.com/vi/BKwa3NfB2mo/maxresdefault.jpg\",\r\n    \"imageBoardgame2\": \"https://misutmeeple.com/wp-content/uploads/2017/04/timeline_detalle_jugada.jpg\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/boardgames/13",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "boardgames",
+            "13"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/boardgames/:idBoardgame",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code correct\", function () {\r",
+              "    if(pm.response.code === 204) {\r",
+              "        pm.response.to.have.status(204);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: The boardgame has not been founded\")\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response structure correct\", function () {\r",
+              "    if(pm.response.code === 204) {\r",
+              "        pm.expect(pm.response.text()).to.be.empty;\r",
+              "    }\r",
+              "    \r",
+              "    if(pm.response.code === 404) {\r",
+              "        const data = pm.response.json();\r",
+              "        pm.expect(data).to.have.property(\"error\").that.is.a(\"string\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Delete errors\", function () {\r",
+              "   \r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: The boardgame has not been founded\")\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/hobbies/boardgames/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "boardgames",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/movies",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.response.to.have.status(200);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: There are no movies\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "const data = pm.response.json();\r",
+              "pm.test(\"Response contains a list of movies\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.expect(data).to.be.an('array');\r",
+              "        pm.expect(data.length).to.be.greaterThan(0);\r",
+              "    }\r",
+              "   \r",
+              "    else if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: There are no movies\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Array has at least 1 movie\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.expect(data.length).to.be.above(0);\r",
+              "    }\r",
+              "\r",
+              "    else if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: There are no movies\");\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"idBoardgame\": 1,\r\n    \"namePerson\": \"Laura\",\r\n    \"qualification\": 3.2,\r\n    \"review\": \"Good board game, but could be better.\"    \r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/movies",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "movies"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/movies/:id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.response.to.have.status(200);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "const data = pm.response.json();\r",
+              "pm.test(\"Movie has all required propierties\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.expect(data).to.have.property(\"id\").that.is.a(\"number\");\r",
+              "        pm.expect(data).to.have.property(\"title\").that.is.a(\"string\");\r",
+              "        pm.expect(data).to.have.property(\"description\").that.is.a(\"string\");\r",
+              "        pm.expect(data).to.have.property(\"image\").that.is.a(\"string\");\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: This id does not exist\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Title checkout\", function () {\r",
+              "    if(pm.response.code === 200){\r",
+              "        pm.expect(data).to.have.property(\"title\").to.be.a(\"string\").that.is.not.empty;\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: This id does not exist\");\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"idBoardgame\": 1,\r\n    \"namePerson\": \"Laura\",\r\n    \"qualification\": 3.2,\r\n    \"review\": \"Good board game, but could be better.\"    \r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/movies/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "movies",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/valorations",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.response.to.have.status(200);\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "const data = pm.response.json();\r",
+              "pm.test(\"Valorations of a movie has all required propierties ?\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        data.forEach((valoration) => {\r",
+              "            pm.expect(valoration).to.have.property(\"movie_id\").that.is.a(\"number\");\r",
+              "            pm.expect(valoration).to.have.property(\"user_name\").that.is.a(\"string\");\r",
+              "            pm.expect(valoration).to.have.property(\"score\").that.is.a(\"number\");\r",
+              "            pm.expect(valoration).to.have.property(\"comment\").that.is.a(\"string\");\r",
+              "        });\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"idBoardgame exist?\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 200) {\r",
+              "        data.forEach((valoration) => {\r",
+              "        pm.expect(valoration).to.have.property(\"movie_id\").to.exist.and.not.null;\r",
+              "        });    \r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/hobbies/valorations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "valorations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/valorations/:movie_id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.response.to.have.status(200);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: There are no valorations for this movie\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "const data = pm.response.json();\r",
+              "pm.test(\"Valorations of a movie has all required propierties ?\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        data.forEach((valoration) => {\r",
+              "            pm.expect(valoration).to.have.property(\"id\").that.is.a(\"integer\");\r",
+              "            pm.expect(valoration).to.have.property(\"movie_id\").that.is.a(\"integer\");\r",
+              "            pm.expect(valoration).to.have.property(\"user_name\").that.is.a(\"string\");\r",
+              "            pm.expect(valoration).to.have.property(\"score\").that.is.a(\"integer\");\r",
+              "            pm.expect(valoration).to.have.property(\"comment\").that.is.a(\"string\");\r",
+              "        });\r",
+              "    }\r",
+              "\r",
+              "    else if (pm.response.code === 404) {\r",
+              "        console.log(\"404: There are no valorations for this movie\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"movie_id exist?\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 200) {\r",
+              "        data.forEach((valoration) => {\r",
+              "        pm.expect(valoration).to.have.property(\"movie_id\").to.exist.and.not.null;\r",
+              "        });    \r",
+              "    }\r",
+              "\r",
+              "    else if (pm.response.code === 404) {\r",
+              "        console.log(\"404: This movie_id does not exist\");\r",
+              "    }    \r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/hobbies/valorations/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "valorations",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/movies",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 201) {\r",
+              "        pm.response.to.have.status(201);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: The movie is already on the list\")\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"New movie has all required propierties\", function () {\r",
+              "    if(pm.response.code === 201){\r",
+              "       const schema = {\r",
+              "        \"type\": \"object\",\r",
+              "        \"properties\": {\r",
+              "            \"title\": { \"type\": \"string\" },\r",
+              "            \"description\": { \"type\": \"string\" },\r",
+              "            \"image\": { \"type\": \"string\" },\r",
+              "            }\r",
+              "        };\r",
+              "        pm.response.to.have.jsonSchema(schema);\r",
+              "    }\r",
+              "    \r",
+              "    \r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: The movie has not been created because it is already on the list.\")\r",
+              "    }\r",
+              "    \r",
+              "});\r",
+              "\r",
+              "const body = pm.response.json();\r",
+              "pm.test(\"title is correct\", function () {\r",
+              "    const data = pm.response.json();\r",
+              "    if(pm.response.code === 201) {\r",
+              "        pm.expect(data.title).to.eql(body.title);\r",
+              "    }\r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: The movie has not been created because it is already on the list.\")\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\":\"cenicienta\",\r\n  \"description\":\"Un ladrón que roba secretos\",\r\n  \"image\":\"inception.jpg\",\r\n  \"year\":2015,\r\n  \"genre\":\"fanyasia\",\r\n  \"director\":\"waltdisney\",\r\n  \"actors\":\"kjdsfnh\",\r\n  \"duration\":120\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/movies",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "movies"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/valorations",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 201) {\r",
+              "        pm.response.to.have.status(201);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 400) {\r",
+              "        pm.response.to.have.status(400);\r",
+              "        console.log(\"409: There are errors in the fields.\")\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: There is no movie to valorate.\")\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"New valoration has all required propierties\", function () {\r",
+              "    if(pm.response.code === 201){\r",
+              "       const schema = {\r",
+              "        \"type\": \"object\",\r",
+              "        \"properties\": {\r",
+              "            \"movie_id\": { \"type\": \"integer\" },\r",
+              "            \"user_name\": { \"type\": \"integer\" },\r",
+              "            \"score\": { \"type\": \"integer\" },\r",
+              "            \"comment\": { \"type\": \"string\" },\r",
+              "            }\r",
+              "        };\r",
+              "        pm.response.to.have.jsonSchema(schema);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 400) {\r",
+              "        pm.response.to.have.status(400);\r",
+              "        console.log(\"409: There are errors in the fields.\")\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: There is no movie to valorate.\")\r",
+              "    }\r",
+              "    \r",
+              "});\r",
+              "\r",
+              "const data = pm.response.json();\r",
+              "const body = pm.response.json();\r",
+              "pm.test(\"movie_id is correct\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 201) {\r",
+              "        pm.expect(data.movie_id).to.eql(body.movie_id);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 400) {\r",
+              "        pm.response.to.have.status(400);\r",
+              "        console.log(\"409: There are errors in the fields.\")\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: The movie has not been created because it is already on the list.\")\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"movie_id\":2,\r\n\"user_name\":\"maria\",\r\n\"score\": 2.1,\r\n\"comment\":\"muy buena\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/valorations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "valorations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/movies/:id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code correct\", function () {\r",
+              "    if(pm.response.code === 204) {\r",
+              "        pm.response.to.have.status(204);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: The movie has not been founded\")\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Updated movie has all properties\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 204) {\r",
+              "        const sentName = JSON.parse(pm.request.body.raw).name;\r",
+              "        pm.collectionVariables.set(\"expectedName\", sentName);\r",
+              "    }\r",
+              "   \r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"The movie has not been founded.\")\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "\r",
+              "pm.test(\"Name is not empty\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 204) {\r",
+              "        const requestBody = pm.request.body.raw;\r",
+              "        pm.expect(requestBody).to.exist.and.not.be.empty;\r",
+              "\r",
+              "        const requestBodyObject = JSON.parse(requestBody);\r",
+              "\r",
+              "        pm.expect(requestBodyObject).to.have.property(\"title\").to.not.be.empty;\r",
+              "    }\r",
+              "    \r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"The movie has not been founded.\")\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\":\"littleprince\",\r\n  \"description\":\"Un ladrón que roba secretos\",\r\n  \"image\":\"inception.jpg\",\r\n  \"year\":2015,\r\n  \"genre\":\"fanyasia\",\r\n  \"director\":\"waltdisney\",\r\n  \"actors\":\"kjdsfnh\",\r\n  \"duration\":120\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/movies/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "movies",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/movies/:id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code correct\", function () {\r",
+              "    if(pm.response.code === 204) {\r",
+              "        pm.response.to.have.status(204);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: The movie has not been founded\")\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response structure correct\", function () {\r",
+              "    if(pm.response.code === 204) {\r",
+              "        pm.expect(pm.response.text()).to.be.empty;\r",
+              "    }\r",
+              "    \r",
+              "    if(pm.response.code === 404) {\r",
+              "        console.log(\"404: The movie has not been founded\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Delete errors\", function () {\r",
+              "   \r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: The movie has not been founded\")\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/movies/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "movies",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
