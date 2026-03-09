@@ -12,13 +12,13 @@ const getMovie = (async (req, res) => {
         return res.status(404).json({ code: 404, title: "not found", message: "Pelicula no encontrada" });
     }
 
-
     const movies = await getMovieById(id);
 
     return res.status(200).json(movies);
 });
 
 const getmovievaloration = (async (req, res) => {
+    
     const valorations = await findsAllMovieValoration();
     return res.status(200).json(valorations);
 
@@ -26,6 +26,14 @@ const getmovievaloration = (async (req, res) => {
 
 const getvalorationmovie = (async (req, res) => {
     const movie_id = req.params.movie_id;
+
+    if (!await findBoardgame(movie_id)) {
+        return res.status(404).json({
+            code: 404,
+            title: 'not-found',
+            message: 'the boardgame have not been founded'
+        });
+    }
     const valorations = await findValorationByMovieId(movie_id);
     return res.status(200).json(valorations);
 });

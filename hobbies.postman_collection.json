@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "a27b6a1f-0929-422e-b85b-2741988db581",
-    "name": "boardgame",
+    "_postman_id": "2d54144a-681e-4d94-bf65-192f7433fdec",
+    "name": "hobbies",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "49087939",
-    "_collection_link": "https://go.postman.co/collection/49087939-a27b6a1f-0929-422e-b85b-2741988db581?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/49087939-2d54144a-681e-4d94-bf65-192f7433fdec?source=collection_link"
   },
   "item": [
     {
@@ -613,7 +613,7 @@
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/hobbies/boardgames/17",
+          "raw": "http://localhost:8080/hobbies/boardgames/3",
           "protocol": "http",
           "host": [
             "localhost"
@@ -622,17 +622,625 @@
           "path": [
             "hobbies",
             "boardgames",
-            "17"
+            "3"
           ]
         }
       },
       "response": []
-    }
-  ],
-  "variable": [
+    },
     {
-      "key": "expectedName",
-      "value": ""
+      "name": "/hobbies/movies",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.response.to.have.status(200);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: There are no movies\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "const data = pm.response.json();\r",
+              "pm.test(\"Response contains a list of movies\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.expect(data).to.be.an('array');\r",
+              "        pm.expect(data.length).to.be.greaterThan(0);\r",
+              "    }\r",
+              "   \r",
+              "    else if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: There are no movies\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Array has at least 1 movie\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.expect(data.length).to.be.above(0);\r",
+              "    }\r",
+              "\r",
+              "    else if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: There are no movies\");\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"idBoardgame\": 1,\r\n    \"namePerson\": \"Laura\",\r\n    \"qualification\": 3.2,\r\n    \"review\": \"Good board game, but could be better.\"    \r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/movies",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "movies"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/movies/:id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.response.to.have.status(200);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "const data = pm.response.json();\r",
+              "pm.test(\"Movie has all required propierties\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.expect(data).to.have.property(\"id\").that.is.a(\"number\");\r",
+              "        pm.expect(data).to.have.property(\"title\").that.is.a(\"string\");\r",
+              "        pm.expect(data).to.have.property(\"description\").that.is.a(\"string\");\r",
+              "        pm.expect(data).to.have.property(\"image\").that.is.a(\"string\");\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: This id does not exist\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Title checkout\", function () {\r",
+              "    if(pm.response.code === 200){\r",
+              "        pm.expect(data).to.have.property(\"title\").to.be.a(\"string\").that.is.not.empty;\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: This id does not exist\");\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"idBoardgame\": 1,\r\n    \"namePerson\": \"Laura\",\r\n    \"qualification\": 3.2,\r\n    \"review\": \"Good board game, but could be better.\"    \r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/movies/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "movies",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/valorations",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.response.to.have.status(200);\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "const data = pm.response.json();\r",
+              "pm.test(\"Valorations of a movie has all required propierties ?\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        data.forEach((valoration) => {\r",
+              "            pm.expect(valoration).to.have.property(\"movie_id\").that.is.a(\"number\");\r",
+              "            pm.expect(valoration).to.have.property(\"user_name\").that.is.a(\"string\");\r",
+              "            pm.expect(valoration).to.have.property(\"score\").that.is.a(\"number\");\r",
+              "            pm.expect(valoration).to.have.property(\"comment\").that.is.a(\"string\");\r",
+              "        });\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"idBoardgame exist?\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 200) {\r",
+              "        data.forEach((valoration) => {\r",
+              "        pm.expect(valoration).to.have.property(\"movie_id\").to.exist.and.not.null;\r",
+              "        });    \r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/hobbies/valorations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "valorations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/valorations/:movie_id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        pm.response.to.have.status(200);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: There are no valorations for this movie\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "const data = pm.response.json();\r",
+              "pm.test(\"Valorations of a movie has all required propierties ?\", function () {\r",
+              "    if(pm.response.code === 200) {\r",
+              "        data.forEach((valoration) => {\r",
+              "            pm.expect(valoration).to.have.property(\"id\").that.is.a(\"integer\");\r",
+              "            pm.expect(valoration).to.have.property(\"movie_id\").that.is.a(\"integer\");\r",
+              "            pm.expect(valoration).to.have.property(\"user_name\").that.is.a(\"string\");\r",
+              "            pm.expect(valoration).to.have.property(\"score\").that.is.a(\"integer\");\r",
+              "            pm.expect(valoration).to.have.property(\"comment\").that.is.a(\"string\");\r",
+              "        });\r",
+              "    }\r",
+              "\r",
+              "    else if (pm.response.code === 404) {\r",
+              "        console.log(\"404: There are no valorations for this movie\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"movie_id exist?\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 200) {\r",
+              "        data.forEach((valoration) => {\r",
+              "        pm.expect(valoration).to.have.property(\"movie_id\").to.exist.and.not.null;\r",
+              "        });    \r",
+              "    }\r",
+              "\r",
+              "    else if (pm.response.code === 404) {\r",
+              "        console.log(\"404: This movie_id does not exist\");\r",
+              "    }    \r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/hobbies/valorations/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "valorations",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/movies",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 201) {\r",
+              "        pm.response.to.have.status(201);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: The movie is already on the list\")\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"New movie has all required propierties\", function () {\r",
+              "    if(pm.response.code === 201){\r",
+              "       const schema = {\r",
+              "        \"type\": \"object\",\r",
+              "        \"properties\": {\r",
+              "            \"title\": { \"type\": \"string\" },\r",
+              "            \"description\": { \"type\": \"string\" },\r",
+              "            \"image\": { \"type\": \"string\" },\r",
+              "            }\r",
+              "        };\r",
+              "        pm.response.to.have.jsonSchema(schema);\r",
+              "    }\r",
+              "    \r",
+              "    \r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: The movie has not been created because it is already on the list.\")\r",
+              "    }\r",
+              "    \r",
+              "});\r",
+              "\r",
+              "const body = pm.response.json();\r",
+              "pm.test(\"title is correct\", function () {\r",
+              "    const data = pm.response.json();\r",
+              "    if(pm.response.code === 201) {\r",
+              "        pm.expect(data.title).to.eql(body.title);\r",
+              "    }\r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: The movie has not been created because it is already on the list.\")\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\":\"cenicienta\",\r\n  \"description\":\"Un ladrón que roba secretos\",\r\n  \"image\":\"inception.jpg\",\r\n  \"year\":2015,\r\n  \"genre\":\"fanyasia\",\r\n  \"director\":\"waltdisney\",\r\n  \"actors\":\"kjdsfnh\",\r\n  \"duration\":120\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/movies",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "movies"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/valorations",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code\", function () {\r",
+              "    if(pm.response.code === 201) {\r",
+              "        pm.response.to.have.status(201);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 400) {\r",
+              "        pm.response.to.have.status(400);\r",
+              "        console.log(\"409: There are errors in the fields.\")\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: There is no movie to valorate.\")\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"New valoration has all required propierties\", function () {\r",
+              "    if(pm.response.code === 201){\r",
+              "       const schema = {\r",
+              "        \"type\": \"object\",\r",
+              "        \"properties\": {\r",
+              "            \"movie_id\": { \"type\": \"integer\" },\r",
+              "            \"user_name\": { \"type\": \"integer\" },\r",
+              "            \"score\": { \"type\": \"integer\" },\r",
+              "            \"comment\": { \"type\": \"string\" },\r",
+              "            }\r",
+              "        };\r",
+              "        pm.response.to.have.jsonSchema(schema);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 400) {\r",
+              "        pm.response.to.have.status(400);\r",
+              "        console.log(\"409: There are errors in the fields.\")\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: There is no movie to valorate.\")\r",
+              "    }\r",
+              "    \r",
+              "});\r",
+              "\r",
+              "const data = pm.response.json();\r",
+              "const body = pm.response.json();\r",
+              "pm.test(\"movie_id is correct\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 201) {\r",
+              "        pm.expect(data.movie_id).to.eql(body.movie_id);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 400) {\r",
+              "        pm.response.to.have.status(400);\r",
+              "        console.log(\"409: There are errors in the fields.\")\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 409) {\r",
+              "        pm.response.to.have.status(409);\r",
+              "        console.log(\"409: The movie has not been created because it is already on the list.\")\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"movie_id\":2,\r\n\"user_name\":\"maria\",\r\n\"score\": 2.1,\r\n\"comment\":\"muy buena\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/valorations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "valorations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/movies/:id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code correct\", function () {\r",
+              "    if(pm.response.code === 204) {\r",
+              "        pm.response.to.have.status(204);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: The movie has not been founded\")\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Updated movie has all properties\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 204) {\r",
+              "        const sentName = JSON.parse(pm.request.body.raw).name;\r",
+              "        pm.collectionVariables.set(\"expectedName\", sentName);\r",
+              "    }\r",
+              "   \r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"The movie has not been founded.\")\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "\r",
+              "pm.test(\"Name is not empty\", function () {\r",
+              "\r",
+              "    if(pm.response.code === 204) {\r",
+              "        const requestBody = pm.request.body.raw;\r",
+              "        pm.expect(requestBody).to.exist.and.not.be.empty;\r",
+              "\r",
+              "        const requestBodyObject = JSON.parse(requestBody);\r",
+              "\r",
+              "        pm.expect(requestBodyObject).to.have.property(\"title\").to.not.be.empty;\r",
+              "    }\r",
+              "    \r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"The movie has not been founded.\")\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\":\"littleprince\",\r\n  \"description\":\"Un ladrón que roba secretos\",\r\n  \"image\":\"inception.jpg\",\r\n  \"year\":2015,\r\n  \"genre\":\"fanyasia\",\r\n  \"director\":\"waltdisney\",\r\n  \"actors\":\"kjdsfnh\",\r\n  \"duration\":120\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/movies/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "movies",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/hobbies/movies/:id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code correct\", function () {\r",
+              "    if(pm.response.code === 204) {\r",
+              "        pm.response.to.have.status(204);\r",
+              "    }\r",
+              "\r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: The movie has not been founded\")\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response structure correct\", function () {\r",
+              "    if(pm.response.code === 204) {\r",
+              "        pm.expect(pm.response.text()).to.be.empty;\r",
+              "    }\r",
+              "    \r",
+              "    if(pm.response.code === 404) {\r",
+              "        console.log(\"404: The movie has not been founded\");\r",
+              "    }\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Delete errors\", function () {\r",
+              "   \r",
+              "    if(pm.response.code === 404) {\r",
+              "        pm.response.to.have.status(404);\r",
+              "        console.log(\"404: The movie has not been founded\")\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:8080/hobbies/movies/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hobbies",
+            "movies",
+            "2"
+          ]
+        }
+      },
+      "response": []
     }
   ]
 }
