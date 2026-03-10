@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const { getDaysFromNow, getDays, getYearsFromNow } = require('../../utils/dateUtils');
+const { getDaysFromNow, getDays, getYearsFromNow,getMonthsFromNow } = require('../../utils/dateUtils');
 
 beforeAll(() => {
     jest.useFakeTimers();
@@ -38,5 +38,17 @@ describe('dateUtils', () => {
         days = getDaysFromNow(new Date('2026-01-30'));
         expect(days).equal(4);
     });
+
+    it('getMonthsFromNow', () => {
+    let months = getMonthsFromNow(new Date('2026-01-03'));
+    expect(months).equal(1);
+
+    months = getMonthsFromNow(new Date('2025-02-03'));
+    expect(months).equal(12);
+
+    months = getMonthsFromNow(new Date('2024-02-03'));
+    expect(months).equal(24);
+});
+    
 });
 

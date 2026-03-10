@@ -42,7 +42,8 @@ const postmovie = (async (req, res) => {
     const director = req.body.director;
     const actors = req.body.actors;
     const duration = req.body.duration;
-    await createMovie(title, description, image, year, genre, director, actors, duration);
+    const trailer = req.body.trailer;
+    await createMovie(title, description, image, year, genre, director, actors, duration, trailer);
     return res.status(201).json({ code: 201, title: "created", message: "Pelicula creada correctamente" });
 });
 
@@ -76,7 +77,8 @@ const putmovie = (async (req, res) => {
     const director = req.body.director;
     const actors = req.body.actors;
     const duration = req.body.duration;
-    await modifymovie(id, title, description, image, year, genre, director, actors, duration);
+    const trailer = req.body.trailer;
+    await modifymovie(id, title, description, image, year, genre, director, actors, duration, trailer);
     return res.status(204).end();
 });
 const deletemovie = (async (req, res) => {

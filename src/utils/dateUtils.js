@@ -13,9 +13,14 @@ function getYearsFromNow(date) {
     const now = new Date(Date.now());
     return Math.ceil(getDays(date, now) / 365);
 }
+ function getMonthsFromNow (date)  {
+        const now = new Date(Date.now());
+        return Math.abs((now.getFullYear() - date.getFullYear()) * 12 + now.getMonth() - date.getMonth());
+    }
 
 module.exports = {
     getDaysFromNow,
     getYearsFromNow,
-    getDays
+    getDays,
+    getMonthsFromNow
 }

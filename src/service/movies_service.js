@@ -15,7 +15,7 @@ const findValorationByMovieId = (async (movie_id) => {
     return await db('valorations').select('*').where({ movie_id: movie_id });
 });
 
-const createMovie = (async (title, description, image, year, genre, director, actors, duration) => {
+const createMovie = (async (title, description, image, year, genre, director, actors, duration,trailer) => {
     return await db('movies').insert({
         title: title,
         description: description,
@@ -24,7 +24,8 @@ const createMovie = (async (title, description, image, year, genre, director, ac
         genre: genre,
         director: director,
         actors: actors,
-        duration: duration
+        duration: duration,
+        trailer: trailer
     });
 });
 
@@ -38,7 +39,7 @@ const createvaloration = (async (movie_id, user_name, score, comment) => {
 });
 
 
-const modifymovie = (async (id, title, description, image, year, genre, director, actors, duration) => {
+const modifymovie = (async (id, title, description, image, year, genre, director, actors, duration,trailer) => {
     return await db('movies').where({ id: id }).update({
         title: title,
         description: description,
@@ -47,7 +48,8 @@ const modifymovie = (async (id, title, description, image, year, genre, director
         genre: genre,
         director: director,
         actors: actors,
-        duration: duration
+        duration: duration,
+        trailer: trailer
     });
 });
 const deleteMovie = (async (id) => {
